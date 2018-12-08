@@ -1,7 +1,6 @@
-#include "BlackScholesTruePrice.h"
-#include <cmath>
-#include "GaussianDistributionClass.h"
+#include "BlackScholesTruePrice.hpp"
 
+using namespace QuantLib;
 
 double BlackScholesTruePrice(double InitialValue, double drift, double volatility, double maturity, double strike, double BarrierLevel)
 {
@@ -11,15 +10,14 @@ double BlackScholesTruePrice(double InitialValue, double drift, double volatilit
     double T = maturity;
     double K = strike;
     double b = BarrierLevel;
-    StandardGaussianDistribution N;
-
+    CumulativeNormalDistribution CDF;
     double result = 0;
 
 
-    result += x*exp(mu*T)*N.cdf(DeltaPlus(mu, sigma, T, x/b));
-    result += -K*N.cdf(DeltaMinus(mu, sigma, T, x/b));
-    result += b*pow(x/b, -2*mu/(sigma*sigma))*exp(mu*T)*(N.cdf(DeltaPlus(mu, sigma, T, b*b/(x*K))) - N.cdf(DeltaPlus(mu, sigma, T, b/x)));
-    result += -K*pow(x/b, -2*mu/(sigma*sigma)+1)*(N.cdf(DeltaMinus(mu, sigma, T, b*b/(x*K))) - N.cdf(DeltaMinus(mu, sigma, T, b/x)));
+    result += x*exp(mu*T)*CDF(DeltaPlus(mu, sigma, T, x/b));
+    result += -K*CDF(DeltaMinus(mu, sigma, T, x/b));
+    result += b*pow(x/b, -2*mu/(sigma*sigma))*exp(mu*T)*(CDF(DeltaPlus(mu, sigma, T, b*b/(x*K))) - CDF(DeltaPlus(mu, sigma, T, b/x)));
+    result += -K*pow(x/b, -2*mu/(sigma*sigma)+1)*(CDF(DeltaMinus(mu, sigma, T, b*b/(x*K))) - CDF(DeltaMinus(mu, sigma, T, b/x)));
 
     return result;
 }
