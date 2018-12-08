@@ -12,6 +12,7 @@
 		70485FC321A27C23003E20AE /* vector_field_class.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 70485FC121A27C23003E20AE /* vector_field_class.cpp */; };
 		704860EB21ABC49C003E20AE /* function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 704860E921ABC49C003E20AE /* function.cpp */; };
 		7048610421BB62E2003E20AE /* conditional_brownian_motion_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7048610221BB62E2003E20AE /* conditional_brownian_motion_generator.cpp */; };
+		7048610721BB9966003E20AE /* BlackScholesTruePrice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7048610521BB9965003E20AE /* BlackScholesTruePrice.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +38,8 @@
 		704860EA21ABC49C003E20AE /* function.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = function.hpp; sourceTree = "<group>"; };
 		7048610221BB62E2003E20AE /* conditional_brownian_motion_generator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = conditional_brownian_motion_generator.cpp; sourceTree = "<group>"; };
 		7048610321BB62E2003E20AE /* conditional_brownian_motion_generator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = conditional_brownian_motion_generator.hpp; sourceTree = "<group>"; };
+		7048610521BB9965003E20AE /* BlackScholesTruePrice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BlackScholesTruePrice.cpp; sourceTree = "<group>"; };
+		7048610621BB9965003E20AE /* BlackScholesTruePrice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BlackScholesTruePrice.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +74,8 @@
 		70485FB621A26B89003E20AE /* time_changed_barrier_option */ = {
 			isa = PBXGroup;
 			children = (
+				7048610521BB9965003E20AE /* BlackScholesTruePrice.cpp */,
+				7048610621BB9965003E20AE /* BlackScholesTruePrice.hpp */,
 				70485FB721A26B89003E20AE /* main.cpp */,
 				7048610221BB62E2003E20AE /* conditional_brownian_motion_generator.cpp */,
 				7048610321BB62E2003E20AE /* conditional_brownian_motion_generator.hpp */,
@@ -147,6 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7048610721BB9966003E20AE /* BlackScholesTruePrice.cpp in Sources */,
 				70485FC321A27C23003E20AE /* vector_field_class.cpp in Sources */,
 				70485FB821A26B89003E20AE /* main.cpp in Sources */,
 				7048610421BB62E2003E20AE /* conditional_brownian_motion_generator.cpp in Sources */,
