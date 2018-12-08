@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/vector_field_class.cpp"
+            timestampString = "565934658.682869"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "VectorFieldsTimeChangedBlackScholesWithUpperBarrier::GetVal(int direction, vector&lt;double&gt; current_point)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/vector_field_class.cpp"
+            timestampString = "565934658.6832581"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "VectorFieldsTimeChangedBlackScholesWithUpperBarrier::GetVal(int direction, vector&lt;double&gt; current_point)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/vector_field_class.cpp"
+            timestampString = "565934658.6833791"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "VectorFieldsTimeChangedBlackScholesWithUpperBarrier::GetVal(int direction, vector&lt;double&gt; current_point)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/vector_field_class.cpp"
+            timestampString = "565934658.683491"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "VectorFieldsTimeChangedBlackScholesWithUpperBarrier::GetVal(int direction, vector&lt;double&gt; current_point)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/main.cpp"
+            timestampString = "565934658.683609"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "main()"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/main.cpp"
+            timestampString = "565934658.685216"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "main()"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/main.cpp"
+            timestampString = "565934658.686345"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "main()"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/main.cpp"
+            timestampString = "565934658.687446"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "8"
+            endingLineNumber = "8"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/main.cpp"
+            timestampString = "565934658.688563"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/main.cpp"
+            timestampString = "565934658.6896501"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/function.cpp"
+            timestampString = "565934658.691362"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "ExpInverseCumul(double unif)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/vector_field_class.cpp"
+            timestampString = "565934658.6918401"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "VectorFields::GetNumOfVecFields()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/operators_for_conditioned_Brownian_motion.cpp"
+            timestampString = "565790520.428584"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "IteratedRandomOperators(const BoxMullerGaussianRng&lt;MersenneTwisterUniformRng&gt; &amp;norm_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;double(double)&gt;&gt; &amp;exp_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;int(double)&gt;&gt; &amp;Lambda1_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;int(double)&gt;&gt; &amp;Lambda2_rand_gen, unsigned long int N, const VectorFields &amp;V, unsigned int j_star, const boost::function&lt;double (vector&lt;double&gt;)&gt; f, double t, double y, vector&lt;double&gt; x)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/operators_for_conditioned_Brownian_motion.cpp"
+            timestampString = "565790520.428889"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "lambda(double s, double t, double y, double x)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/operators_for_conditioned_Brownian_motion.cpp"
+            timestampString = "565790520.428985"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "lambda(double s, double t, double y, double x)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/operators_for_conditioned_Brownian_motion.cpp"
+            timestampString = "565790520.429065"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/operators_for_conditioned_Brownian_motion.cpp"
+            timestampString = "565790520.429145"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "IteratedRandomOperators(const BoxMullerGaussianRng&lt;MersenneTwisterUniformRng&gt; &amp;norm_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;double(double)&gt;&gt; &amp;exp_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;int(double)&gt;&gt; &amp;Lambda1_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;int(double)&gt;&gt; &amp;Lambda2_rand_gen, unsigned long int N, const VectorFields &amp;V, unsigned int j_star, const boost::function&lt;double (vector&lt;double&gt;)&gt; f, double t, double y, vector&lt;double&gt; x)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/operators_for_conditioned_Brownian_motion.cpp"
+            timestampString = "565790520.4292229"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "IteratedRandomOperators(const BoxMullerGaussianRng&lt;MersenneTwisterUniformRng&gt; &amp;norm_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;double(double)&gt;&gt; &amp;exp_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;int(double)&gt;&gt; &amp;Lambda1_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;int(double)&gt;&gt; &amp;Lambda2_rand_gen, unsigned long int N, const VectorFields &amp;V, unsigned int j_star, const boost::function&lt;double (vector&lt;double&gt;)&gt; f, double t, double y, vector&lt;double&gt; x)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/operators_for_conditioned_Brownian_motion.cpp"
+            timestampString = "565790520.4293"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "IteratedRandomOperators(const BoxMullerGaussianRng&lt;MersenneTwisterUniformRng&gt; &amp;norm_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;double(double)&gt;&gt; &amp;exp_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;int(double)&gt;&gt; &amp;Lambda1_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;int(double)&gt;&gt; &amp;Lambda2_rand_gen, unsigned long int N, const VectorFields &amp;V, unsigned int j_star, const boost::function&lt;double (vector&lt;double&gt;)&gt; f, double t, double y, vector&lt;double&gt; x)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "time_changed_barrier_option/operators_for_conditioned_Brownian_motion.cpp"
+            timestampString = "565790520.4293669"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "IteratedRandomOperators(const BoxMullerGaussianRng&lt;MersenneTwisterUniformRng&gt; &amp;norm_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;double(double)&gt;&gt; &amp;exp_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;int(double)&gt;&gt; &amp;Lambda1_rand_gen, const InverseCumulativeRsg&lt;RandomSequenceGenerator&lt;MersenneTwisterUniformRng&gt;, boost::function&lt;int(double)&gt;&gt; &amp;Lambda2_rand_gen, unsigned long int N, const VectorFields &amp;V, unsigned int j_star, const boost::function&lt;double (vector&lt;double&gt;)&gt; f, double t, double y, vector&lt;double&gt; x)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
