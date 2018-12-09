@@ -8,7 +8,7 @@
 
 #include "generator_first_hitting_time.hpp"
 
-double GeneratorFirstHittingtime(MersenneTwisterUniformRng &unif_gen, double barrier_level)
+double GeneratorFirstHittingTime(MersenneTwisterUniformRng &unif_gen, double barrier_level)
 {
     double a = barrier_level;
     double gamma = GeneratorGammaRandNum(unif_gen);
