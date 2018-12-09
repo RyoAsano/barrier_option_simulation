@@ -10,7 +10,7 @@
 
 using namespace QuantLib;
 
-double GeneratorFirstHittingTime(MersenneTwisterUniformRng &unif_gen, double barrier_level)
+double GeneratorFirstHittingTime(const MersenneTwisterUniformRng &unif_gen, double barrier_level)
 {
     double a = barrier_level;
     double gamma = GeneratorGammaRandNum(unif_gen);

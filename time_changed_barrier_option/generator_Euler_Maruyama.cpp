@@ -22,7 +22,7 @@ vector<double> EulerMaruyamaScheme(const BoxMullerGaussianRng<MersenneTwisterUni
     {
         vector<double> running_x_before_update = running_x;
         running_x = running_x_before_update;
-        double a = running_x(0);
+
         for(unsigned int j=0; j <=d; j++)
         {
             if(j==0)

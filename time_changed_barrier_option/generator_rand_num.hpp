@@ -13,12 +13,12 @@
 
 
 //Generates the Beta(1/2, 1/2) (alpha = 1/2, beta = 1/2) random number from a uniform random variable.
-double GeneratorBetaRandNum(QuantLib::MersenneTwisterUniformRng &unif_gen);
+double GeneratorBetaRandNum(const QuantLib::MersenneTwisterUniformRng &unif_gen);
 
 //Generates the Exp(1) (lambda = 1) random number.
-double GeneratorExpRandNum(QuantLib::MersenneTwisterUniformRng &unif_gen);
+double GeneratorExpRandNum(const QuantLib::MersenneTwisterUniformRng &unif_gen);
 
 //Generates the Gamma(1/2, 1) (alpha = 1/2, lambda = 1) random number.
-double GeneratorGammaRandNum(QuantLib::MersenneTwisterUniformRng &unif_gen);
+double GeneratorGammaRandNum(const QuantLib::MersenneTwisterUniformRng &unif_gen);
 
 /* generator_rand_num_hpp */

@@ -10,7 +10,7 @@
 
 using namespace QuantLib;
 
-double GeneratorBetaRandNum(MersenneTwisterUniformRng &unif_gen)
+double GeneratorBetaRandNum(const MersenneTwisterUniformRng &unif_gen)
 {
     double PI = 3.14159265358979323846;
     double U = unif_gen.next().value;
@@ -19,13 +19,13 @@ double GeneratorBetaRandNum(MersenneTwisterUniformRng &unif_gen)
     return std::cos(arg) * std::cos(arg);
 }
 
-double GeneratorExpRandNum(MersenneTwisterUniformRng &unif_gen)
+double GeneratorExpRandNum(const MersenneTwisterUniformRng &unif_gen)
 {
     double U = unif_gen.next().value;
     return - std::log(U);
 }
 
-double GeneratorGammaRandNum(MersenneTwisterUniformRng &unif_gen)
+double GeneratorGammaRandNum(const MersenneTwisterUniformRng &unif_gen)
 {
     double beta = GeneratorBetaRandNum(unif_gen);
     double exp = GeneratorExpRandNum(unif_gen);
