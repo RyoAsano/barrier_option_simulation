@@ -1,5 +1,5 @@
 //
-//  gamma_rand_num_generator.hpp
+//  generator_rand_num.hpp
 //  time_changed_barrier_option
 //
 //  Created by Asano Ryo on 2018/12/08.
@@ -15,12 +15,12 @@ using namespace QuantLib;
 
 
 //Generates the Beta(1/2, 1/2) (alpha = 1/2, beta = 1/2) random number from a uniform random variable.
-double BetaRandNumGenerator(MersenneTwisterUniformRng &unif_gen);
+double GeneratorBetaRandNum(MersenneTwisterUniformRng &unif_gen);
 
 //Generates the Exp(1) (lambda = 1) random number.
-double ExpRandNumGenerator(MersenneTwisterUniformRng &unif_gen);
+double GeneratorExpRandNum(MersenneTwisterUniformRng &unif_gen);
 
 //Generates the Gamma(1/2, 1) (alpha = 1/2, lambda = 1) random number.
-double GammaRandNumGenerator(MersenneTwisterUniformRng &unif_gen);
+double GeneratorGammaRandNum(MersenneTwisterUniformRng &unif_gen);
 
-/* gamma_rand_num_generator_hpp */
+/* generator_rand_num_hpp */

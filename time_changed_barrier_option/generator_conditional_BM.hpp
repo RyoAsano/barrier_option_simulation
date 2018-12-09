@@ -26,15 +26,15 @@ using namespace boost::numeric::ublas;
 double lambda(double s, double t, double y, double x);
 
 
-double IteratedRandomOperators(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
-                               unsigned long int N, const VectorFields &V, unsigned int j_star,
-                               const boost::function<double (vector<double>)> f, double t, double y, vector<double> x);
+double IteratedRandomOperatorForConditionalBM(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
+                                               unsigned long int N, const VectorFields &V, unsigned int j_star,
+                                               const boost::function<double (vector<double>)> f, double t, double y, vector<double> x);
 
 
 /*
- conditional_BM_generator generates a Euler--Maruyama approximated path of the conditional Brownian motion given the first hitting time t to the level y.
+ GeneratorConditionalBM generates a Euler--Maruyama approximated path of the conditional Brownian motion given the first hitting time t to the level y.
  N denotes the grid size of the partion for the Euler--Maruyama approximation.
 */
-std::vector<double> conditional_BM_generator(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen, unsigned long int N, double t, double y);
+std::vector<double> GeneratorConditionalBM(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen, unsigned long int N, double t, double y);
 
-/* conditional_brownian_motion_generator_hpp */
+/* generator_conditional_BM_hpp */

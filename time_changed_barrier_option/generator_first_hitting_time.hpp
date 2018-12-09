@@ -1,5 +1,5 @@
 //
-//  first_passage_time_generator.hpp
+//  generator_first_hitting_time.hpp
 //  time_changed_barrier_option
 //
 //  Created by Asano Ryo on 2018/12/08.
@@ -11,11 +11,11 @@
 #include <ql/quantlib.hpp>
 #include <ql/methods/montecarlo/sample.hpp>
 #include <cmath>
-#include "rand_num_generator.hpp"
+#include "generator_rand_num.hpp"
 
 using namespace QuantLib;
 
 //generates a random number of the first hitting time of a 1-dim brownian motion to the barrier_level.
-double FirstHittingTimeGenerator(MersenneTwisterUniformRng &unif_gen, double barrier_level);
+double GeneratorFirstHittingtime(MersenneTwisterUniformRng &unif_gen, double barrier_level);
 
- /* first_passage_time_generator_hpp */
+ /* generator_first_hitting_time_hpp */
