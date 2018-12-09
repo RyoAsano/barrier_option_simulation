@@ -14,6 +14,7 @@ public:
     VectorFields(){};
     virtual boost::numeric::ublas::vector<double> GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const=0;
     int GetNumOfVecFields() const;
+    int GetDimOfStateSpace() const;
     
 protected:
     int num_of_vector_fields;   //the dimension of Brownian motion, i.e. d.
@@ -25,13 +26,24 @@ class VectorFieldsTimeChangedBlackScholesWithUpperBarrier : public VectorFields 
 public:
     VectorFieldsTimeChangedBlackScholesWithUpperBarrier(double mu_, double sigma_, double barrier_);
     boost::numeric::ublas::vector<double> GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const;     //returns V_i(x) if you put .GetVal(i,x)
-    int GetNumOfVecFields() const;      //returns the dimension of Brownian motion.
     
 private:
     double mu;
     double sigma;
     double barrier;
 };
+
+class VectorFieldsBlackScholes : public VectorFields {
+public:
+    VectorFieldsBlackScholes(double mu_, double sigma_);
+    boost::numeric::ublas::vector<double> GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const;     //returns V_i(x) if you put .GetVal(i,x)
+    int GetNumOfVecFields() const;      //returns the dimension of Brownian motion.
+    
+private:
+    double mu;
+    double sigma;
+};
+
 
 
 class VectorFieldsTest : public VectorFields {
