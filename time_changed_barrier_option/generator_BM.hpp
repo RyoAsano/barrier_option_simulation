@@ -6,9 +6,27 @@
 //  Copyright © 2018年 Asano Ryo. All rights reserved.
 //
 
-#ifndef generator_BM_hpp
-#define generator_BM_hpp
+#pragma once
 
-#include <stdio.h>
+#include <iostream>
+#include <boost/function.hpp>
+#include <boost/math/special_functions.hpp>
+#include <boost/numeric/ublas/vector.hpp>
+#include <boost/numeric/ublas/matrix.hpp>
+#include <boost/numeric/ublas/io.hpp>
+#include <cmath>
+#include <ql/quantlib.hpp>
+#include <ql/methods/montecarlo/sample.hpp>
+#include "vector_field_class.hpp"
+#include <fstream>
 
-#endif /* generator_BM_hpp */
+using namespace QuantLib;
+using namespace boost::numeric::ublas;
+
+
+//this is the normal Euler--Maruyama scheme.
+double IteratedRandomOperatorForBM(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
+                                   unsigned long int N, const VectorFields &V, const boost::function<double (vector<double>)> f, double T, vector<double> x);
+
+
+/* generator_BM_hpp */
