@@ -13,9 +13,7 @@
 #include <cmath>
 #include "generator_rand_num.hpp"
 
-using namespace QuantLib;
-
 //generates a random number of the first hitting time of a 1-dim brownian motion to the barrier_level.
-double GeneratorFirstHittingTime(MersenneTwisterUniformRng &unif_gen, double barrier_level);
+double GeneratorFirstHittingTime(QuantLib::MersenneTwisterUniformRng &unif_gen, double barrier_level);
 
  /* generator_first_hitting_time_hpp */

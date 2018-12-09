@@ -1,17 +1,18 @@
 //
-//  generator_BM.cpp
+//  generator_Euler_Maruyama.cpp
 //  time_changed_barrier_option
 //
 //  Created by Asano Ryo on 2018/12/09.
 //  Copyright © 2018年 Asano Ryo. All rights reserved.
 //
 
-#include "generator_BM.hpp"
+#include "generator_Euler_Maruyama.hpp"
 
 using namespace QuantLib;
+using namespace boost::numeric::ublas;
 
-double IteratedRandomOperatorForBM(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
-                                   unsigned long int N, const VectorFields &V, const boost::function<double (vector<double>)> f, double T, vector<double> x)
+vector<double> EulerMaruyamaScheme(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
+                                   unsigned long int N, const VectorFields &V, double T, vector<double> x)
 {
     vector<double> running_x = x;           //running_x takes on the first argument of the operator Qf that is supposed to update recursively.
     unsigned int d = V.GetNumOfVecFields();
@@ -35,6 +36,16 @@ double IteratedRandomOperatorForBM(const BoxMullerGaussianRng<MersenneTwisterUni
             }
         }
     }
+    
+    return running_x;
+    
+}
+
+
+double IteratedRandomOperatorForEulerMaruyama(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
+                                              unsigned long int N, const VectorFields &V, const boost::function<double (vector<double>)> f, double T, vector<double> x)
+{
+    vector<double> running_x = EulerMaruyamaScheme(norm_rand_gen, N, V, T, x);
 
     return f(running_x);
     

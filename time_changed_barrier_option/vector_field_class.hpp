@@ -9,12 +9,10 @@
 #pragma once
 #include <boost/numeric/ublas/vector.hpp>
 
-using namespace boost::numeric::ublas;
-
 class VectorFields{
 public:
     VectorFields(){};
-    virtual vector<double> GetVal(int direction, vector<double> current_point) const=0;
+    virtual boost::numeric::ublas::vector<double> GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const=0;
     int GetNumOfVecFields() const;
     
 protected:
@@ -26,7 +24,7 @@ protected:
 class VectorFieldsTimeChangedBlackScholesWithUpperBarrier : public VectorFields {
 public:
     VectorFieldsTimeChangedBlackScholesWithUpperBarrier(double mu_, double sigma_, double barrier_);
-    vector<double> GetVal(int direction, vector<double> current_point) const;     //returns V_i(x) if you put .GetVal(i,x)
+    boost::numeric::ublas::vector<double> GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const;     //returns V_i(x) if you put .GetVal(i,x)
     int GetNumOfVecFields() const;      //returns the dimension of Brownian motion.
     
 private:
@@ -39,7 +37,7 @@ private:
 class VectorFieldsTest : public VectorFields {
 public:
     VectorFieldsTest();
-    vector<double> GetVal(int direction, vector<double> current_point) const;
+    boost::numeric::ublas::vector<double> GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const;
     int GetNumOfVecFields() const;
 };
 

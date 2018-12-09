@@ -8,6 +8,7 @@
 
 #include "generator_rand_num.hpp"
 
+using namespace QuantLib;
 
 double GeneratorBetaRandNum(MersenneTwisterUniformRng &unif_gen)
 {

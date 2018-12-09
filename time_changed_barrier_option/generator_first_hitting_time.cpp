@@ -8,6 +8,8 @@
 
 #include "generator_first_hitting_time.hpp"
 
+using namespace QuantLib;
+
 double GeneratorFirstHittingTime(MersenneTwisterUniformRng &unif_gen, double barrier_level)
 {
     double a = barrier_level;

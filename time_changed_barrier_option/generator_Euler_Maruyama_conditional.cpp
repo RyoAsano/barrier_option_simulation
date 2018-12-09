@@ -1,13 +1,15 @@
 //
-//  generator_conditional_BM.cpp
+//  generator_Euler_Maruyama_conditional.cpp
 //  time_changed_barrier_option
 //
 //  Created by Asano Ryo on 2018/12/08.
 //  Copyright © 2018年 Asano Ryo. All rights reserved.
 //
 
-#include "generator_conditional_BM.hpp"
+#include "generator_Euler_Maruyama_conditional.hpp"
+
 using namespace QuantLib;
+using namespace boost::numeric::ublas;
 
 double lambda(double s, double t, double y, double x)
 {
@@ -17,9 +19,8 @@ double lambda(double s, double t, double y, double x)
     return y-abs_value;
 }
 
-double IteratedRandomOperatorForConditionalBM(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
-                                               unsigned long int N, const VectorFields &V, unsigned int j_star,
-                                               const boost::function<double (vector<double>)> f, double t, double y, vector<double> x)
+vector<double> EulerMaruyamaSchemeWithConditionalBM(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
+                                                    unsigned long int N, const VectorFields &V, unsigned int j_star, double t, double y, vector<double> x)
 {
     vector<double> running_x = x;           //running_x takes on the first argument of the operator Qf that is supposed to update recursively.
     double running_z = 0;                   //running_z takes on the second argument.
@@ -28,7 +29,7 @@ double IteratedRandomOperatorForConditionalBM(const BoxMullerGaussianRng<Mersenn
     //impliment the recursive argument up to k <= N-1.
     for(unsigned long int i=0; i<=N-2; i++)
     {
-                                                                 //Since i starts from 0, we regard (i+1) as k and i runs to N-2 so k = i+1 to N-1.
+        //Since i starts from 0, we regard (i+1) as k and i runs to N-2 so k = i+1 to N-1.
         double s_km = i*t/N;                                     //s_km denotes s_{k-1} (m stands for minus).
         
         double Z_j_star = norm_rand_gen.next().value;
@@ -76,9 +77,18 @@ double IteratedRandomOperatorForConditionalBM(const BoxMullerGaussianRng<Mersenn
             running_x += V.GetVal(j, running_x_before_update) * sqrt(t/N) * Z;
         }
     }
-
-    return f(running_x);
     
+    return running_x;
+    
+}
+
+
+double IteratedRandomOperatorForEulerMaruyamaConditional(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
+                                                         unsigned long int N, const VectorFields &V, unsigned int j_star,
+                                                         const boost::function<double (vector<double>)> f, double t, double y, vector<double> x)
+{
+    vector<double> running_x = EulerMaruyamaSchemeWithConditionalBM(norm_rand_gen,N,V,j_star,t,y,x);
+    return f(running_x);
 }
 
 

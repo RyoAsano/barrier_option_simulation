@@ -11,16 +11,14 @@
 #include <ql/methods/montecarlo/sample.hpp>
 #include <cmath>
 
-using namespace QuantLib;
-
 
 //Generates the Beta(1/2, 1/2) (alpha = 1/2, beta = 1/2) random number from a uniform random variable.
-double GeneratorBetaRandNum(MersenneTwisterUniformRng &unif_gen);
+double GeneratorBetaRandNum(QuantLib::MersenneTwisterUniformRng &unif_gen);
 
 //Generates the Exp(1) (lambda = 1) random number.
-double GeneratorExpRandNum(MersenneTwisterUniformRng &unif_gen);
+double GeneratorExpRandNum(QuantLib::MersenneTwisterUniformRng &unif_gen);
 
 //Generates the Gamma(1/2, 1) (alpha = 1/2, lambda = 1) random number.
-double GeneratorGammaRandNum(MersenneTwisterUniformRng &unif_gen);
+double GeneratorGammaRandNum(QuantLib::MersenneTwisterUniformRng &unif_gen);
 
 /* generator_rand_num_hpp */

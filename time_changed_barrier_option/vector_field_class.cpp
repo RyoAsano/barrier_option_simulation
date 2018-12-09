@@ -8,6 +8,8 @@
 
 #include "vector_field_class.hpp"
 
+using namespace boost::numeric::ublas;
+
 int VectorFields::GetNumOfVecFields() const{
     return num_of_vector_fields;
 }
