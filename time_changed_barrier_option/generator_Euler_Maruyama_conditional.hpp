@@ -27,6 +27,12 @@ double lambda(double s, double t, double y, double x);
 boost::numeric::ublas::vector<double> EulerMaruyamaSchemeWithConditionalBM(const QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> &norm_rand_gen,
                                                                            unsigned long int N, const VectorFields &V, unsigned int j_star, double t, double y, boost::numeric::ublas::vector<double> x);
 
+//monitors the barrier hitting condition.
+boost::numeric::ublas::vector<double> EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(const QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> &norm_rand_gen,
+                                                                                          unsigned long int N, const VectorFieldsTimeChanged &V, unsigned int j_star, double t, double T,
+                                                                                          double barrier_level, boost::numeric::ublas::vector<double> x, bool *the_process_hits_the_barrier);
+
+
 //returns f(X(t,x)).
 double IteratedRandomOperatorForEulerMaruyamaConditional(const QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> &norm_rand_gen,
                                                          unsigned long int N, const VectorFields &V, unsigned int j_star,

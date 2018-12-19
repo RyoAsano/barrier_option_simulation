@@ -10,9 +10,9 @@
 
 using namespace boost::numeric::ublas;
 
-int VectorFields::GetNumOfVecFields() const
+int VectorFields::GetDimOfDiffusionCoeff() const
 {
-    return num_of_vector_fields;
+    return dim_of_diffusion_coeff;
 }
 
 int VectorFields::GetDimOfStateSpace() const
@@ -20,10 +20,16 @@ int VectorFields::GetDimOfStateSpace() const
     return dim_of_state_space;
 }
 
+int VectorFieldsTimeChanged::GetBarrierMonitoringIndex() const
+{
+    return barrier_monitoring_index;
+}
+
 VectorFieldsTimeChangedBlackScholesWithUpperBarrier::VectorFieldsTimeChangedBlackScholesWithUpperBarrier(double mu_, double sigma_, double barrier_)
 {
-    num_of_vector_fields = 2;
-    dim_of_state_space = 3;
+    dim_of_diffusion_coeff = 1;
+    dim_of_state_space = 2;
+    barrier_monitoring_index = 1;
     mu = mu_;
     sigma = sigma_;
     barrier = barrier_;
@@ -38,22 +44,49 @@ vector<double> VectorFieldsTimeChangedBlackScholesWithUpperBarrier::GetVal(int d
     switch(direction){
         case 0:  //define the vector field of the drift term, i.e. V_0.
             result(0) = 0;
-            result(1) = 0;
-            result(2) = 1.0/(sigma*sigma*current_point[0]*current_point[0]);
+            result(1) = 1.0/(sigma*sigma*current_point[0]*current_point[0]);
             break;
         case 1: //define the vector field w.r.t. the first coordinate of Brownian motion, i.e. V_1.
             result(0) = 1.0;
-            result(1) = mu * current_point[1] / (sigma*sigma*current_point[0]);
-            result(2) = 0;
+            result(1) = 0;
             break;
     }
     
     return result;
+
+}
+
+VectorFieldsTimeChangedTest::VectorFieldsTimeChangedTest()
+{
+    dim_of_diffusion_coeff = 1;
+    dim_of_state_space = 2;
+    barrier_monitoring_index = 1;
+    
+}
+
+vector<double> VectorFieldsTimeChangedTest::GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const
+{
+    vector<double> result(dim_of_state_space);
+    
+    switch(direction){
+        case 0:  //define the vector field of the drift term, i.e. V_0.
+            result(0) = 0;
+            result(1) = 1.0;
+            break;
+        case 1: //define the vector field w.r.t. the first coordinate of Brownian motion, i.e. V_1.
+            result(0) = 1.0;
+            result(1) = 0;
+            break;
+    }
+    
+    return result;
+    
+
 }
 
 VectorFieldsBlackScholes::VectorFieldsBlackScholes(double mu_, double sigma_)
 {
-    num_of_vector_fields = 2;
+    dim_of_diffusion_coeff = 1;
     dim_of_state_space = 1;
     mu = mu_;
     sigma = sigma_;
@@ -65,10 +98,10 @@ vector<double> VectorFieldsBlackScholes::GetVal(int direction, boost::numeric::u
     
     switch(direction){
         case 0:  //define the vector field of the drift term, i.e. V_0.
-            result(0) = mu*current_point(0);
+            result(0) = mu * current_point(0);
             break;
         case 1: //define the vector field w.r.t. the first coordinate of Brownian motion, i.e. V_1.
-            result(0) = sigma*current_point(0);
+            result(0) = sigma * current_point(0);
             break;
     }
     
@@ -77,7 +110,7 @@ vector<double> VectorFieldsBlackScholes::GetVal(int direction, boost::numeric::u
 
 VectorFieldsTest::VectorFieldsTest()
 {
-    num_of_vector_fields = 2;
+    dim_of_diffusion_coeff = 1;
     dim_of_state_space = 1;
 }
 

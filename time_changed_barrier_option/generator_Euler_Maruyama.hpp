@@ -24,6 +24,10 @@
 boost::numeric::ublas::vector<double> EulerMaruyamaScheme(const QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> &norm_rand_gen,
                                                           unsigned long int N, const VectorFields &V, double T, boost::numeric::ublas::vector<double> x);
 
+//returns X(tau \wedge T).
+boost::numeric::ublas::vector<double> EulerMaruyamaSchemeWithStoppingCond(const QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> &norm_rand_gen,
+                                                                          unsigned long int N, const VectorFields &V, double T, boost::numeric::ublas::vector<double> x, double barrier_level, bool *the_process_hits_the_barrier);
+
 //returns f(X(T,x)).
 double IteratedRandomOperatorForEulerMaruyama(const QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> &norm_rand_gen,
                                               unsigned long int N, const VectorFields &V, const boost::function<double (boost::numeric::ublas::vector<double>)> f, double T, boost::numeric::ublas::vector<double> x);

@@ -13,16 +13,27 @@ class VectorFields{
 public:
     VectorFields(){};
     virtual boost::numeric::ublas::vector<double> GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const=0;
-    int GetNumOfVecFields() const;
+    int GetDimOfDiffusionCoeff() const;
     int GetDimOfStateSpace() const;
     
 protected:
-    int num_of_vector_fields;   //the dimension of Brownian motion, i.e. d.
+    int dim_of_diffusion_coeff;              //the dimension of Brownian motion, i.e. d.
     int dim_of_state_space;     //the dimension of the state space which coincides with that of the underlying diffusion process X(t), i.e. n.
 };
 
 
-class VectorFieldsTimeChangedBlackScholesWithUpperBarrier : public VectorFields {
+class VectorFieldsTimeChanged : public VectorFields
+{
+public:
+    VectorFieldsTimeChanged(){};
+    int GetBarrierMonitoringIndex() const;
+    
+protected:
+    int barrier_monitoring_index;
+};
+
+class VectorFieldsTimeChangedBlackScholesWithUpperBarrier : public VectorFieldsTimeChanged
+{
 public:
     VectorFieldsTimeChangedBlackScholesWithUpperBarrier(double mu_, double sigma_, double barrier_);
     boost::numeric::ublas::vector<double> GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const;     //returns V_i(x) if you put .GetVal(i,x)
@@ -31,6 +42,16 @@ private:
     double mu;
     double sigma;
     double barrier;
+};
+
+class VectorFieldsTimeChangedTest : public VectorFieldsTimeChanged
+{
+public:
+    VectorFieldsTimeChangedTest();
+    boost::numeric::ublas::vector<double> GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const;     //returns V_i(x) if you put .GetVal(i,x)
+    
+private:
+    
 };
 
 class VectorFieldsBlackScholes : public VectorFields {

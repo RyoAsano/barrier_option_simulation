@@ -24,7 +24,7 @@ vector<double> EulerMaruyamaSchemeWithConditionalBM(const BoxMullerGaussianRng<M
 {
     vector<double> running_x = x;           //running_x takes on the first argument of the operator Qf that is supposed to update recursively.
     double running_z = 0;                   //running_z takes on the second argument.
-    unsigned int d = V.GetNumOfVecFields();
+    unsigned int d = V.GetDimOfDiffusionCoeff();
     
     //impliment the recursive argument up to k <= N-1.
     for(unsigned long int i=0; i<=N-2; i++)
@@ -44,10 +44,16 @@ vector<double> EulerMaruyamaSchemeWithConditionalBM(const BoxMullerGaussianRng<M
             if(j==0)
             {
                 running_x += V.GetVal(0, running_x_before_update) * (t/N);
+                double a = running_x(0);
+                double b = running_x(1);
+                a;
             }
             else if(j==j_star)
             {
                 running_x += V.GetVal(j_star, running_x_before_update) * arg_for_lambda;
+                double a = running_x(0);
+                double b = running_x(1);
+                a;
             }
             else
             {
@@ -81,6 +87,93 @@ vector<double> EulerMaruyamaSchemeWithConditionalBM(const BoxMullerGaussianRng<M
     return running_x;
     
 }
+
+boost::numeric::ublas::vector<double> EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(const QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> &norm_rand_gen,
+                                                                                          unsigned long int N, const VectorFieldsTimeChanged &V, unsigned int j_star, double t, double T,
+                                                                                          double barrier_level, boost::numeric::ublas::vector<double> x, bool *the_process_hits_the_barrier)
+{
+    vector<double> running_x = x;           //running_x takes on the first argument of the operator Qf that is supposed to update recursively.
+    double running_z = 0;                   //running_z takes on the second argument.
+    unsigned int d = V.GetDimOfDiffusionCoeff();
+    int i_barrier = V.GetBarrierMonitoringIndex();
+    double y = barrier_level;
+    
+    *the_process_hits_the_barrier = true;
+    
+    //impliment the recursive argument up to k <= N-1.
+    for(unsigned long int i=0; i<=N-2; i++)
+    {
+        //Since i starts from 0, we regard (i+1) as k and i runs to N-2 so k = i+1 to N-1.
+        double s_km = i*t/N;                                     //s_km denotes s_{k-1} (m stands for minus).
+        
+        double Z_j_star = norm_rand_gen.next().value;
+        double arg_for_lambda = lambda(t/N, t-s_km, y-running_z, Z_j_star);
+        
+        running_z += arg_for_lambda;                            //update conditional brownian motion.
+        
+        vector<double> running_x_before_update = running_x;
+        running_x = running_x_before_update;
+        for(unsigned int j=0; j <=d; j++)
+        {
+            if(j==0)
+            {
+                running_x += V.GetVal(0, running_x_before_update) * (t/N);
+                double a = running_x(0);
+                double b = running_x(1);
+                a;
+            }
+            else if(j==j_star)
+            {
+                running_x += V.GetVal(j_star, running_x_before_update) * arg_for_lambda;
+                double a = running_x(0);
+                double b = running_x(1);
+                a;
+            }
+            else
+            {
+                double Z = norm_rand_gen.next().value;
+                running_x += V.GetVal(j, running_x_before_update) * sqrt(t/N) * Z;
+            }            
+        }
+        
+        if(running_x(i_barrier) > T)
+        {
+            *the_process_hits_the_barrier = false;
+            break;
+        }
+    }
+    
+    
+    //the last substitution for k=N.
+    vector<double> running_x_before_update = running_x;
+    running_x = running_x_before_update;
+    for(unsigned int j=0; j <=d; j++)
+    {
+        if(j==0)
+        {
+            running_x += V.GetVal(0, running_x_before_update) * (t/N);
+        }
+        else if(j==j_star)
+        {
+            running_x += V.GetVal(j_star, running_x_before_update) * (y-running_z);
+        }
+        else
+        {
+            double Z = norm_rand_gen.next().value;
+            running_x += V.GetVal(j, running_x_before_update) * sqrt(t/N) * Z;
+        }
+    }
+    
+    if(running_x(i_barrier) > T)
+    {
+        *the_process_hits_the_barrier = false;
+    }
+
+    
+    return running_x;
+    
+}
+
 
 
 double IteratedRandomOperatorForEulerMaruyamaConditional(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,

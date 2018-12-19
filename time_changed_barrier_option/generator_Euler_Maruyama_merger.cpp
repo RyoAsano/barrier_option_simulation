@@ -13,25 +13,44 @@ using namespace QuantLib;
 
 vector<double> EulerMaruyamaSchemeMerger(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
                                          const MersenneTwisterUniformRng &unif_gen,
-                                         unsigned long int N_EM_cond, unsigned long int N_EM, const VectorFields &V,
+                                         unsigned long int N_EM_cond, unsigned long int N_EM, const VectorFields &V_time_changed, const VectorFields &V_normal,
                                          unsigned int j_star, double T, double barrier_level, vector<double> x)
 {
     double tau = GeneratorFirstHittingTime(unif_gen, barrier_level);
     
     vector<double> running_x = x;
     
-    running_x = EulerMaruyamaSchemeWithConditionalBM(norm_rand_gen, N_EM_cond, V, j_star, tau, barrier_level, running_x);
-    running_x = EulerMaruyamaScheme(norm_rand_gen, N_EM, V, T, running_x);
+    running_x = EulerMaruyamaSchemeWithConditionalBM(norm_rand_gen, N_EM_cond, V_time_changed, j_star, tau, barrier_level, running_x);
+    running_x.resize(V_normal.GetDimOfStateSpace());
+    running_x = EulerMaruyamaScheme(norm_rand_gen, N_EM, V_normal, T, running_x);
     
     return running_x;
 }
 
 double IteratedRandomOperatorForEulerMaruyamaMerger(const BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> &norm_rand_gen,
                                                     const MersenneTwisterUniformRng &unif_gen,
-                                                    unsigned long int N_EM_cond, unsigned long int N_EM, const VectorFields &V, unsigned int j_star, double T, double barrier_level,
-                                                    const boost::function<double (vector<double>)> f, vector<double> x)
+                                                    unsigned long int N_EM_cond, unsigned long int N_EM, const VectorFieldsTimeChanged &V_time_changed, const VectorFields &V_normal,
+                                                    unsigned int j_star, double T, double barrier_level, const boost::function<double (vector<double>)> f, vector<double> x)
 {
-    vector<double> running_x = EulerMaruyamaSchemeMerger(norm_rand_gen, unif_gen, N_EM_cond, N_EM, V, j_star, T, barrier_level, x);
+    double tau_hat = GeneratorFirstHittingTime(unif_gen, barrier_level-x(0));
     
-    return f(running_x);
+    vector<double> running_x = x;
+    bool the_process_hits_the_barrier;
+    
+    running_x = EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(norm_rand_gen, N_EM_cond, V_time_changed, j_star, tau_hat, T, barrier_level-x(0), running_x, &the_process_hits_the_barrier);
+    
+    if(the_process_hits_the_barrier)
+    {
+        double tau = running_x(V_time_changed.GetBarrierMonitoringIndex());
+        running_x.resize(V_normal.GetDimOfStateSpace());
+        running_x = EulerMaruyamaScheme(norm_rand_gen, N_EM, V_normal, T-tau, running_x);
+        double a = running_x(0);
+        
+        return f(running_x);
+
+    }
+    else
+    {
+        return 0;
+    }
 }
