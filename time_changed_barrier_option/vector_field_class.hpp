@@ -26,6 +26,7 @@ class VectorFieldsTimeChanged : public VectorFields
 {
 public:
     VectorFieldsTimeChanged(){};
+    virtual double BarrierFunction(boost::numeric::ublas::vector<double> spot) const=0;
     int GetBarrierMonitoringIndex() const;
     
 protected:
@@ -37,6 +38,7 @@ class VectorFieldsTimeChangedBlackScholesWithUpperBarrier : public VectorFieldsT
 public:
     VectorFieldsTimeChangedBlackScholesWithUpperBarrier(double mu_, double sigma_, double barrier_);
     boost::numeric::ublas::vector<double> GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const;     //returns V_i(x) if you put .GetVal(i,x)
+    double BarrierFunction(boost::numeric::ublas::vector<double> spot) const;
     
 private:
     double mu;
@@ -49,6 +51,7 @@ class VectorFieldsTimeChangedTest : public VectorFieldsTimeChanged
 public:
     VectorFieldsTimeChangedTest();
     boost::numeric::ublas::vector<double> GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const;     //returns V_i(x) if you put .GetVal(i,x)
+    double BarrierFunction(boost::numeric::ublas::vector<double> spot) const;
     
 private:
     

@@ -30,7 +30,7 @@ boost::numeric::ublas::vector<double> EulerMaruyamaSchemeWithConditionalBM(const
 //monitors the barrier hitting condition.
 boost::numeric::ublas::vector<double> EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(const QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> &norm_rand_gen,
                                                                                           unsigned long int N, const VectorFieldsTimeChanged &V, unsigned int j_star, double t, double T,
-                                                                                          double barrier_level, boost::numeric::ublas::vector<double> x, bool *the_process_hits_the_barrier);
+                                                                                          boost::numeric::ublas::vector<double> x, bool *the_process_hits_the_barrier);
 
 
 //returns f(X(t,x)).

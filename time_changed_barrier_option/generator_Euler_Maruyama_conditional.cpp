@@ -88,15 +88,15 @@ vector<double> EulerMaruyamaSchemeWithConditionalBM(const BoxMullerGaussianRng<M
     
 }
 
-boost::numeric::ublas::vector<double> EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(const QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> &norm_rand_gen,
-                                                                                          unsigned long int N, const VectorFieldsTimeChanged &V, unsigned int j_star, double t, double T,
-                                                                                          double barrier_level, boost::numeric::ublas::vector<double> x, bool *the_process_hits_the_barrier)
+vector<double> EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
+                                                                   unsigned long int N, const VectorFieldsTimeChanged &V, unsigned int j_star, double t, double T,
+                                                                   vector<double> x, bool *the_process_hits_the_barrier)
 {
     vector<double> running_x = x;           //running_x takes on the first argument of the operator Qf that is supposed to update recursively.
     double running_z = 0;                   //running_z takes on the second argument.
     unsigned int d = V.GetDimOfDiffusionCoeff();
     int i_barrier = V.GetBarrierMonitoringIndex();
-    double y = barrier_level;
+    double y =  abs(V.BarrierFunction(x));
     
     *the_process_hits_the_barrier = true;
     

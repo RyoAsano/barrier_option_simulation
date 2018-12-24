@@ -56,6 +56,11 @@ vector<double> VectorFieldsTimeChangedBlackScholesWithUpperBarrier::GetVal(int d
 
 }
 
+double VectorFieldsTimeChangedBlackScholesWithUpperBarrier::BarrierFunction(boost::numeric::ublas::vector<double> spot) const
+{
+    return spot(0) - barrier;
+}
+
 VectorFieldsTimeChangedTest::VectorFieldsTimeChangedTest()
 {
     dim_of_diffusion_coeff = 1;
@@ -80,8 +85,11 @@ vector<double> VectorFieldsTimeChangedTest::GetVal(int direction, boost::numeric
     }
     
     return result;
-    
+}
 
+double VectorFieldsTimeChangedTest::BarrierFunction(boost::numeric::ublas::vector<double> spot) const
+{
+    return 1.0;
 }
 
 VectorFieldsBlackScholes::VectorFieldsBlackScholes(double mu_, double sigma_)
