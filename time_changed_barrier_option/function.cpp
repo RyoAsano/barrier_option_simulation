@@ -10,6 +10,7 @@
 
 using namespace QuantLib;  
 using namespace boost::math::quadrature;
+using namespace std;
 
 double ExpInverseCumul(double unif)
 {
@@ -77,4 +78,127 @@ double CDFOfGeometricBMFirstHittingTime(double mu, double sigma, double T, doubl
     
     return CDF(h_minus) + pow(x/b, -2.0*mu/(sigma*sigma)+1.0) * CDF(h_plus);
 }
+
+
+double BlackScholesTrueExpEurCall(double init_value, double drift, double volatility, double maturity, double strike)
+{
+    double x = init_value;
+    double r = drift;
+    double sigma = volatility;
+    double T = maturity;
+    double K = strike;
+    CumulativeNormalDistribution CDF;
+    
+    double delta_plus = 1.0/(sigma*sqrt(T)) * (log(x/K) + (r+sigma*sigma/2.0)*T);
+    double delta_minus = 1.0/(sigma*sqrt(T)) * (log(x/K) + (r-sigma*sigma/2.0)*T);
+    
+    return x*exp(r*T)*CDF(delta_plus) - K*CDF(delta_minus);
+}
+
+double BlackScholesTrueExpEurPut(double init_value, double drift, double volatility, double maturity, double strike)
+{
+    double x = init_value;
+    double r = drift;
+    double sigma = volatility;
+    double T = maturity;
+    double K = strike;
+    CumulativeNormalDistribution CDF;
+    
+    double delta_plus = 1.0/(sigma*sqrt(T)) * (log(x/K) + (r+sigma*sigma/2.0)*T);
+    double delta_minus = 1.0/(sigma*sqrt(T)) * (log(x/K) + (r-sigma*sigma/2.0)*T);
+    
+    return K*CDF(-delta_minus) - x *exp(r*T)*CDF(-delta_plus);
+}
+
+double BlackScholesTrueExpDigCall(double init_value, double drift, double volatility, double maturity, double strike)
+{
+    double x = init_value;
+    double r = drift;
+    double sigma = volatility;
+    double T = maturity;
+    double K = strike;
+    CumulativeNormalDistribution CDF;
+    
+    double delta_minus = 1.0/(sigma*sqrt(T)) * (log(x/K) + (r-sigma*sigma/2.0)*T);
+    
+    return CDF(delta_minus);
+
+}
+
+double BlackScholesTrueExpDigPut(double init_value, double drift, double volatility, double maturity, double strike)
+{
+    double x = init_value;
+    double r = drift;
+    double sigma = volatility;
+    double T = maturity;
+    double K = strike;
+    CumulativeNormalDistribution CDF;
+
+    double delta_minus = 1.0/(sigma*sqrt(T)) * (log(x/K) + (r-sigma*sigma/2.0)*T);
+
+    return CDF(-delta_minus);
+    
+}
+
+
+double BlackScholesTrueExpEurCallUpAndOut(double init_value, double drift, double volatility, double maturity, double strike, double barrier_level)
+{
+    double S = init_value;
+    double r = drift;
+    double sigma = volatility;
+    double T = maturity;
+    double E = strike;
+    double B = barrier_level;
+    CumulativeNormalDistribution CDF;
+    
+    double alpha = 0.5 * (1.0 - 2.0*r/(sigma*sigma));
+
+    double result = 0;
+    
+    result += BlackScholesTrueExpEurCall(S, r, sigma, T, E) - BlackScholesTrueExpEurCall(S, r, sigma, T, B) - (B-E)* BlackScholesTrueExpDigCall(S, r, sigma, T, B);
+    
+    result += - pow(S/B, 2.0*alpha)
+    *(BlackScholesTrueExpEurCall(B*B/S, r, sigma, T, E) - BlackScholesTrueExpEurCall(B*B/S, r, sigma, T, B) - (B-E)*BlackScholesTrueExpDigCall(B*B/S, r, sigma, T, B));
+    
+    return result;
+    
+}
+
+double BlackScholesTrueExpEurPutUpAndOut(double init_value, double drift, double volatility, double maturity, double strike, double barrier_level)
+{
+    double S = init_value;
+    double r = drift;
+    double sigma = volatility;
+    double T = maturity;
+    double E = strike;
+    double B = barrier_level;
+    CumulativeNormalDistribution CDF;
+    
+    double alpha = 0.5 * (1.0 - 2.0*r/(sigma*sigma));
+    
+    double result = 0;
+    
+    result = BlackScholesTrueExpEurPut(S, r, sigma, T, E) - pow(S/B, 2.0*alpha)*BlackScholesTrueExpEurPut(B*B/S, r, sigma, T, E);
+
+    return result;
+}
+
+double BlackScholesTrueExpEurCallUpAndIn(double init_value, double drift, double volatility, double maturity, double strike, double barrier_level)
+{
+    double result = BlackScholesTrueExpEurCall(init_value, drift, volatility, maturity, strike)
+    -BlackScholesTrueExpEurCallUpAndOut(init_value, drift, volatility, maturity, strike, barrier_level);
+    
+    return result;
+}
+
+
+
+double BlackScholesTrueExpEurPutUpAndIn(double init_value, double drift, double volatility, double maturity, double strike, double barrier_level)
+{
+    double result = BlackScholesTrueExpEurPut(init_value, drift, volatility, maturity, strike)
+    - BlackScholesTrueExpEurPutUpAndOut(init_value, drift, volatility, maturity, strike, barrier_level);
+    
+    return result;
+}
+
 

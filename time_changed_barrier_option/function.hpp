@@ -26,4 +26,25 @@ double CDFOfBMFirstHittingTime(double barrier_level, double T);
 
 double CDFOfGeometricBMFirstHittingTime(double mu, double sigma, double T, double barrier_level, double init_value);
 
+
+//returns the price times exp(rT).
+double BlackScholesTrueExpEurCall(double init_value, double drift, double volatility, double maturity, double strike);
+
+//returns the price times exp(rT).
+double BlackScholesTrueExpEurPut(double init_value, double drift, double volatility, double maturity, double strike);
+
+double BlackScholesTrueExpDigCall(double init_value, double drift, double volatility, double maturity, double strike);
+
+double BlackScholesTrueExpDigPut(double init_value, double drift, double volatility, double maturity, double strike);
+
+double BlackScholesTrueExpEurCallUpAndOut(double init_value, double drift, double volatility, double maturity, double strike, double barrier_level);
+
+double BlackScholesTrueExpEurPutUpAndOut(double init_value, double drift, double volatility, double maturity, double strike, double barrier_level);
+
+double BlackScholesTrueExpEurCallUpAndIn(double init_value, double drift, double volatility, double maturity, double strike, double barrier_level);
+
+double BlackScholesTrueExpEurPutUpAndIn(double init_value, double drift, double volatility, double maturity, double strike, double barrier_level);
+
+
+
 /* function_hpp */
