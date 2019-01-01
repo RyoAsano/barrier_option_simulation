@@ -61,11 +61,12 @@ double VectorFieldsTimeChangedBlackScholesWithUpperBarrier::BarrierFunction(boos
     return spot(0) - barrier;
 }
 
-VectorFieldsTimeChangedTest::VectorFieldsTimeChangedTest()
+VectorFieldsTimeChangedTest::VectorFieldsTimeChangedTest(double barrier_level_)
 {
     dim_of_diffusion_coeff = 1;
     dim_of_state_space = 2;
     barrier_monitoring_index = 1;
+    barrier_level = barrier_level_;
     
 }
 
@@ -76,7 +77,7 @@ vector<double> VectorFieldsTimeChangedTest::GetVal(int direction, boost::numeric
     switch(direction){
         case 0:  //define the vector field of the drift term, i.e. V_0.
             result(0) = 0;
-            result(1) = 1.0;
+            result(1) = 0;
             break;
         case 1: //define the vector field w.r.t. the first coordinate of Brownian motion, i.e. V_1.
             result(0) = 1.0;
@@ -89,7 +90,7 @@ vector<double> VectorFieldsTimeChangedTest::GetVal(int direction, boost::numeric
 
 double VectorFieldsTimeChangedTest::BarrierFunction(boost::numeric::ublas::vector<double> spot) const
 {
-    return 1.0;
+    return spot(0)-barrier_level;
 }
 
 VectorFieldsBlackScholes::VectorFieldsBlackScholes(double mu_, double sigma_)

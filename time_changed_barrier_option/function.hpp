@@ -45,6 +45,7 @@ double BlackScholesTrueExpEurCallUpAndIn(double init_value, double drift, double
 
 double BlackScholesTrueExpEurPutUpAndIn(double init_value, double drift, double volatility, double maturity, double strike, double barrier_level);
 
+double DensityOfConditionalBM(double t, double y, double s, double x);
 
 
 /* function_hpp */

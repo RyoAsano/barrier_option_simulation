@@ -7,6 +7,8 @@
 //
 
 #include "generator_Euler_Maruyama_conditional.hpp"
+#include <iostream>
+#include <fstream>
 
 using namespace QuantLib;
 using namespace boost::numeric::ublas;
@@ -88,6 +90,7 @@ vector<double> EulerMaruyamaSchemeWithConditionalBM(const BoxMullerGaussianRng<M
     
 }
 
+
 vector<double> EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
                                                                    unsigned long int N, const VectorFieldsTimeChanged &V, unsigned int j_star, double t, double T,
                                                                    vector<double> x, bool *the_process_hits_the_barrier)
@@ -97,7 +100,6 @@ vector<double> EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(const BoxMull
     unsigned int d = V.GetDimOfDiffusionCoeff();
     int i_barrier = V.GetBarrierMonitoringIndex();
     double y =  abs(V.BarrierFunction(x));
-    
     *the_process_hits_the_barrier = true;
     
     //impliment the recursive argument up to k <= N-1.
@@ -175,36 +177,72 @@ vector<double> EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(const BoxMull
 }
 
 
-
-double IteratedRandomOperatorForEulerMaruyamaConditional(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
-                                                         unsigned long int N, const VectorFields &V, unsigned int j_star,
-                                                         const boost::function<double (vector<double>)> f, double t, double y, vector<double> x)
+double IteratedRandomOperatorEulerMaruyamaSchemeWithConditionalBMAndStoppingCondModified(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen,
+                                                                                         unsigned long int multiplier, const VectorFieldsTimeChanged &V, unsigned int j_star, double t, double T,
+                                                                                         vector<double> x, const boost::function<double (double, vector<double>)> f)
 {
-    vector<double> running_x = EulerMaruyamaSchemeWithConditionalBM(norm_rand_gen,N,V,j_star,t,y,x);
-    return f(running_x);
-}
-
-
-std::vector<double> GeneratorConditionalBM(const BoxMullerGaussianRng<MersenneTwisterUniformRng> &norm_rand_gen, unsigned long int N, double t, double y)
-{
-    std::vector<double> result;
+    int d = V.GetDimOfDiffusionCoeff();
+    int barrier_index = V.GetBarrierMonitoringIndex();
+    double goal = abs(V.BarrierFunction(x));
+    int N = int(std::ceil(multiplier*t));
+    double aaa = t/N;
     
-    double running_z = 0;                   //running_z takes on the second argument.
-    result.push_back(running_z);
+    vector<double> running_process = x;
+    double running_condBM = 0;
+    double running_factor = 1.0;
+    bool the_process_hits_the_barrier = true;
     
-    for(unsigned long int i=0; i<=N-2; i++)
-    {
-        double s_km = i*t/N;                                     //s_km denotes s_{k-1} (m stands for minus).
-        double Z_j_star = norm_rand_gen.next().value;
-        double arg_for_lambda = lambda(t/N, t-s_km, y-running_z, Z_j_star);
+    for(int k=0; k<N; k++){
+        vector<double> spot = running_process;
+        for(int j=0;j<=d;j++){
+            if(j==0){
+                running_process += V.GetVal(j, spot)*t/N;
+            }else if(j!=j_star){
+                double Z = norm_rand_gen.next().value;
+                running_process += V.GetVal(j, spot)*Z*sqrt(t/N);
+            }else{
+                double s_k = (k+1)*t/N;
+                double s_km = k*t/N;
+                double Z = norm_rand_gen.next().value;
+                bool need_to_jump_to_the_goal = (k==N-1);
+                double del_condBM = need_to_jump_to_the_goal?
+                (goal-running_condBM):
+                (goal-running_condBM-abs(Z*sqrt((t-s_k)/(t-s_km) * t/N) - (goal-running_condBM)*(t-s_k)/(t-s_km)));
+                running_process += V.GetVal(j, spot)* del_condBM;
+                running_factor *= need_to_jump_to_the_goal?1.0:(1.0 + Z/(goal-running_condBM) * sqrt((t-s_km)/(t-s_k) * t/N));
+                running_condBM += del_condBM;
+            }
+        }
         
-        running_z += arg_for_lambda;                            //update conditional brownian motion.
-        result.push_back(running_z);
+        /*
+        double mu = 0.02;
+        double sigma = 0.2;
+        double barrier_level = 110;
+        double T = 1.0;
+        double K = 100;
+
+        double tes = x(0) + running_condBM;
+        double tes2 = running_process(0);
+        double test = spot(1) + 1.0/(sigma*sigma*spot(0)*spot(0)) * t/N;
+        double test2 = running_process(1);
+        */
+        
+        
+        if(running_process(barrier_index)>T){
+            /*
+            std::ofstream output("/Users/asanoryo/Documents/python/col_of_tau_when_process_hits_the_barrier.csv", std::ios::app);
+            output << t << "\n";
+            output.close();
+             */
+            the_process_hits_the_barrier=false;
+            break;
+        }
     }
     
-    running_z = y;
-    result.push_back(running_z);
-    
+    double result=0;
+    if(the_process_hits_the_barrier){
+        result = running_factor * f(running_process(barrier_index), running_process);
+    }
+        
     return result;
-    
 }

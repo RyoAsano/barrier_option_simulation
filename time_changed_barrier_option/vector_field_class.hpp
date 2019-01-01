@@ -49,11 +49,12 @@ private:
 class VectorFieldsTimeChangedTest : public VectorFieldsTimeChanged
 {
 public:
-    VectorFieldsTimeChangedTest();
+    VectorFieldsTimeChangedTest(double barrier_level_);
     boost::numeric::ublas::vector<double> GetVal(int direction, boost::numeric::ublas::vector<double> current_point) const;     //returns V_i(x) if you put .GetVal(i,x)
     double BarrierFunction(boost::numeric::ublas::vector<double> spot) const;
     
 private:
+    double barrier_level;
     
 };
 

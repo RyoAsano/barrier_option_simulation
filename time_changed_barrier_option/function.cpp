@@ -7,6 +7,7 @@
 //
 
 #include "function.hpp"
+#include <cassert>
 
 using namespace QuantLib;  
 using namespace boost::math::quadrature;
@@ -201,4 +202,21 @@ double BlackScholesTrueExpEurPutUpAndIn(double init_value, double drift, double 
     return result;
 }
 
+
+double DensityOfConditionalBM(double t, double y, double s, double x){
+    double result=0;
+    assert(s<t);
+    if(s==0){
+        result = (y==x)?10000000:0;
+    }
+    if(x<y){
+        double PI = 3.14159265358979323846;
+        auto N = [=](double u, double z){return 1.0/sqrt(2.0*PI*u) * exp(-z*z/(2.0*u));};
+        double aaa = (t-s)*s/t;
+        double bbb = x-y+(1.0-s/t)*y;
+        double ccc =x-y-(1.0-s/t)*y;
+        result = (y-x)/(t-s)*t/y*(N((t-s)*s/t, x-y+(1.0-s/t)*y)-N((t-s)*s/t, x-y-(1.0-s/t)*y));
+    }
+    return result;
+}
 

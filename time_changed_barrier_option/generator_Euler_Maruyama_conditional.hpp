@@ -18,6 +18,8 @@
 #include <ql/methods/montecarlo/sample.hpp>
 #include "vector_field_class.hpp"
 #include <fstream>
+#include "generator_rand_num.hpp"
+
 
 
 double lambda(double s, double t, double y, double x);
@@ -31,6 +33,11 @@ boost::numeric::ublas::vector<double> EulerMaruyamaSchemeWithConditionalBM(const
 boost::numeric::ublas::vector<double> EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(const QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> &norm_rand_gen,
                                                                                           unsigned long int N, const VectorFieldsTimeChanged &V, unsigned int j_star, double t, double T,
                                                                                           boost::numeric::ublas::vector<double> x, bool *the_process_hits_the_barrier);
+
+double IteratedRandomOperatorEulerMaruyamaSchemeWithConditionalBMAndStoppingCondModified(const QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> &norm_rand_gen,
+                                                                                         unsigned long int N, const VectorFieldsTimeChanged &V, unsigned int j_star, double t, double T,
+                                                                                         boost::numeric::ublas::vector<double> x, const boost::function<double (double, boost::numeric::ublas::vector<double>)> f);
+
 
 
 //returns f(X(t,x)).

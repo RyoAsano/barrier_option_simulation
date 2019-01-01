@@ -41,9 +41,6 @@ int main() {
     x(0) = 100;
     x(1) = 0;
     
-    vector<double> y(1);
-    
-    y(0) = 100;
     
     double mu = 0.02;
     double sigma = 0.2;
@@ -53,66 +50,61 @@ int main() {
     
     VectorFieldsTimeChangedBlackScholesWithUpperBarrier V_BS_time_changed(mu, sigma, barrier_level);
     VectorFieldsBlackScholes V_BS_normal(mu, sigma);
-    VectorFieldsTimeChangedTest V_time_changed_test;
+    VectorFieldsTimeChangedTest V_test_time_changed(barrier_level);
     VectorFieldsTest V_test;
     
     boost::function<double(vector<double>)> f = [=](vector<double> x){return (K < x(0)) ? (x(0)-K) : 0 ;};
-    boost::function<double(vector<double>)> id = [=](vector<double> x){return x(0) ;};
+    boost::function<double(double, vector<double>)> id = [=](double t, vector<double> x){return x(0) ;};
+    boost::function<double(double, vector<double>)> Pf = [=](double t, vector<double> x){return BlackScholesTrueExpEurCall(x(0), mu, sigma, T-t, K);};
     
     unsigned int j_star = 1;
     
-    unsigned long int N_EM_cond = 100;
-    unsigned long int N_EM = 10;
+    unsigned long int N_EM_cond = 10;
+    unsigned long int N_EM = 100;
     unsigned long int N = N_EM_cond;
-    unsigned long int MonteCarloSimNum = 5000000;
-    double running_sum=0;
+    unsigned long int MonteCarloSimNum = 500000;
+    long double running_sum=0;
     
     
     for(int i=0;i<MonteCarloSimNum;i++)
     {
-        double tau_hat = GeneratorFirstHittingTime(unifMt, abs(V_BS_time_changed.BarrierFunction(x)));
-        
-        vector<double> running_x = x;
-        bool the_process_hits_the_barrier;
-        
-        running_x = EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(norm_rand_gen, N_EM_cond, V_BS_time_changed, j_star, tau_hat, T, running_x, &the_process_hits_the_barrier);
-        
-        if(the_process_hits_the_barrier)
-        {
-            double tau = running_x(V_BS_time_changed.GetBarrierMonitoringIndex());
-            
-            running_sum += BlackScholesTrueExpEurCall(running_x(0), mu, sigma, T-tau, K);
-            
-        }
-        else
-        {
-            running_sum += 0;
-        }
-
+        double tau = GeneratorFirstHittingTime(unifMt, barrier_level - x(0));
+        running_sum += IteratedRandomOperatorEulerMaruyamaSchemeWithConditionalBMAndStoppingCondModified(norm_rand_gen, N, V_BS_time_changed, j_star, tau, T, x, Pf);
         //running_sum += IteratedRandomOperatorForEulerMaruyama(norm_rand_gen, N_EM, V_BS_normal, id, T, y);
         //IteratedRandomOperatorForEulerMaruyamaMerger(norm_rand_gen, unifMt, N_EM_cond, N_EM, V_BS_time_changed, V_BS_normal, j_star, T, f, x);
         //IteratedRandomOperatorForEulerMaruyamaMerger(norm_rand_gen, unifMt, N_EM_cond, N_EM, V_BS_time_changed, V_BS_normal, j_star, T, barrier_level, f, x);
         //double tau = GeneratorFirstHittingTime(unifMt, barrier_level-x(0));
         //running_sum += (tau <= T) ? 1 : 0;
-        //vector<double> X = EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(norm_rand_gen,N, V_time_changed_test, j_star, tau, T, barrier_level-x(0), x);
-        //running_sum += X(V_time_changed_test.GetBarrierMonitoringIndex())> std::numeric_limits<double>::max()?0:f(X);
+        //vector<double> X = EulerMaruyamaSchemeWithConditionalBMAndStoppingCond(norm_rand_gen,N, V_BS_time_changed, j_star, tau, T, barrier_level-x(0), x);
+        //running_sum += X(V_BS_time_changed.GetBarrierMonitoringIndex())> std::numeric_limits<double>::max()?0:f(X);
         //IteratedRandomOperatorForEulerMaruyamaMerger(norm_rand_gen, unifMt, N_EM_cond, N_EM, V_time_changed_test, V_BS_normal, j_star, T, barrier_level, f, x);
         //IteratedRandomOperatorForEulerMaruyama(norm_rand_gen, N_EM, V_time_changed_test, f, T, x);
         //IteratedRandomOperatorForEulerMaruyamaConditional(norm_rand_gen, N_EM, V_BS_time_changed, j_star, f, T, barrier_level, x);
         //IteratedRandomOperatorForEulerMaruyamaMerger(norm_rand_gen, unifMt, N_EM_cond, N_EM, V_BS_time_changed, V_BS_normal, j_star, T, barrier_level, f, x);
     }
-    
+
     std::cout << running_sum/MonteCarloSimNum << "\n";
     //std::cout << BlackScholesTruePrice(x(0), mu, sigma, T, K, barrier_level) << "\n";
-    
     std::cout << BlackScholesTrueExpEurCallUpAndIn(x(0), mu, sigma, T, K, barrier_level) << "\n";
+    std::cout << Pf(0,x) << "\n";
     
     return 0;
 }
 
-//10  8.80066
-//100 8.81281
 
+/*
+ 5,000,000 paths
+ N=10
+ approx. 8.54323
+ 
+ N=100
+ approx. 8.46217
+ 
+ 50,000,000 paths
+ N=10
+ 8.53667
+ 
+ */
 
 
 /*
