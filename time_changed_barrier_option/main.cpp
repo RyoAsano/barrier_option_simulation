@@ -62,7 +62,7 @@ int main() {
     unsigned long int N_EM_cond = 10;
     unsigned long int N_EM = 100;
     unsigned long int N = N_EM_cond;
-    unsigned long int MonteCarloSimNum = 500000;
+    unsigned long int MonteCarloSimNum = 5000000;
     long double running_sum=0;
     
     
@@ -85,6 +85,12 @@ int main() {
 
     std::cout << running_sum/MonteCarloSimNum << "\n";
     //std::cout << BlackScholesTruePrice(x(0), mu, sigma, T, K, barrier_level) << "\n";
+    x(0)=100;
+    sigma = 0.2;
+    mu = 0;
+    barrier_level = 90;
+    K=95;
+    
     std::cout << BlackScholesTrueExpEurCallUpAndIn(x(0), mu, sigma, T, K, barrier_level) << "\n";
     std::cout << Pf(0,x) << "\n";
     

@@ -209,7 +209,7 @@ double IteratedRandomOperatorEulerMaruyamaSchemeWithConditionalBMAndStoppingCond
                 (goal-running_condBM):
                 (goal-running_condBM-abs(Z*sqrt((t-s_k)/(t-s_km) * t/N) - (goal-running_condBM)*(t-s_k)/(t-s_km)));
                 running_process += V.GetVal(j, spot)* del_condBM;
-                running_factor *= need_to_jump_to_the_goal?1.0:(1.0 + Z/(goal-running_condBM) * sqrt((t-s_km)/(t-s_k) * t/N));
+                running_factor *= need_to_jump_to_the_goal?1.0:(1.0 - Z/(goal-running_condBM) * sqrt((t-s_km)/(t-s_k) * t/N));
                 running_condBM += del_condBM;
             }
         }
