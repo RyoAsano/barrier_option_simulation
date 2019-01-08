@@ -1,12 +1,5 @@
 time_changed_barrier_option.xcodeproj/
 .DS_Store
-.gitignore~
-time_changed_barrier_option/.DS_Store
-time_changed_barrier_option/cond_BM_paths.csv
-time_changed_barrier_option/max_and_argmax_list.csv
-time_changed_barrier_option/test.csv
-time_changed_barrier_option/test2.csv/.DS_Store
-time_changed_barrier_option/test2.csv
-barrier_option_another_test.xcworkspace/
-barrier_option_another_test/
-src/
+time_changed_barrier_option/build
+time_changed_barrier_option/csv_output
+time_changed_barrier_option/compile_commands.json
