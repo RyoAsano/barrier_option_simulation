@@ -1,0 +1,47 @@
+[
+{
+  "directory": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++   -I/usr/local/include -I/usr/local/include/boost   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -std=c++11 -o CMakeFiles/Main.dir/main.cpp.o -c /Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/main.cpp",
+  "file": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/main.cpp"
+},
+{
+  "directory": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++   -I/usr/local/include -I/usr/local/include/boost   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -std=c++11 -o CMakeFiles/Main.dir/BlackScholesTruePrice.cpp.o -c /Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/BlackScholesTruePrice.cpp",
+  "file": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/BlackScholesTruePrice.cpp"
+},
+{
+  "directory": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++   -I/usr/local/include -I/usr/local/include/boost   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -std=c++11 -o CMakeFiles/Main.dir/generator_first_hitting_time.cpp.o -c /Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/generator_first_hitting_time.cpp",
+  "file": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/generator_first_hitting_time.cpp"
+},
+{
+  "directory": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++   -I/usr/local/include -I/usr/local/include/boost   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -std=c++11 -o CMakeFiles/Main.dir/function.cpp.o -c /Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/function.cpp",
+  "file": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/function.cpp"
+},
+{
+  "directory": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++   -I/usr/local/include -I/usr/local/include/boost   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -std=c++11 -o CMakeFiles/Main.dir/generator_rand_num.cpp.o -c /Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/generator_rand_num.cpp",
+  "file": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/generator_rand_num.cpp"
+},
+{
+  "directory": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++   -I/usr/local/include -I/usr/local/include/boost   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -std=c++11 -o CMakeFiles/Main.dir/generator_Euler_Maruyama.cpp.o -c /Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/generator_Euler_Maruyama.cpp",
+  "file": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/generator_Euler_Maruyama.cpp"
+},
+{
+  "directory": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++   -I/usr/local/include -I/usr/local/include/boost   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -std=c++11 -o CMakeFiles/Main.dir/generator_Euler_Maruyama_conditional.cpp.o -c /Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/generator_Euler_Maruyama_conditional.cpp",
+  "file": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/generator_Euler_Maruyama_conditional.cpp"
+},
+{
+  "directory": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++   -I/usr/local/include -I/usr/local/include/boost   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -std=c++11 -o CMakeFiles/Main.dir/generator_Euler_Maruyama_merger.cpp.o -c /Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/generator_Euler_Maruyama_merger.cpp",
+  "file": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/generator_Euler_Maruyama_merger.cpp"
+},
+{
+  "directory": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++   -I/usr/local/include -I/usr/local/include/boost   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -std=c++11 -o CMakeFiles/Main.dir/vector_field_class.cpp.o -c /Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/vector_field_class.cpp",
+  "file": "/Users/Owner/my_repo/barrier_option_simulation/time_changed_barrier_option/vector_field_class.cpp"
+}
+]
