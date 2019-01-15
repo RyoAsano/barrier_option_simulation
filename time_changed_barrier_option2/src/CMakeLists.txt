@@ -1,6 +1,5 @@
 set(ALL_SRCS
-    foo.cc
-    )
+    true_value.cc)
 
 #Make sure that the dependencies among headers are in a correct order.
 set(ALL_INCLUDES
