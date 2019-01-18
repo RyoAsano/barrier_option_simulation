@@ -1,14 +1,11 @@
-#include  "true_value.h"
-#include "constant.h"
+#include "prob_density_func.h"
 #include <cassert>
 #include <cmath>
+#include "constant.h"
 
+namespace prob_density_func {
 
-double CDFofNormDist(double prob_less_than){
-    return 0.5*erfc(-prob_less_than*sqrt(0.5));
-}
-
-double PDFofBMsFirstHittingTime(double barrier_level, double time){
+double BrownianMotionFirstHittingTime(double barrier_level, double time){
     assert(time >= 0 && barrier_level >= 0);
     double result = 0;
     if(time!=0){
@@ -16,7 +13,6 @@ double PDFofBMsFirstHittingTime(double barrier_level, double time){
     }
     return result;
 }
-
-
+}//namespcace PDF
 
 

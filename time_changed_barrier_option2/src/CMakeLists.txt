@@ -1,5 +1,8 @@
 set(ALL_SRCS
-    true_value.cc
+    cumulative_dist_func.cc
+    euler_maruyama_alg.cc
+    prob_density_func.cc
+    random_number_generator_func.cc
     )
 
 #Make sure that the dependencies among headers are in a correct order.

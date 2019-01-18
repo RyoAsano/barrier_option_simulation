@@ -2,7 +2,9 @@ set(HOME_DIR /Users/Owner)
 
 set(ALL_TEST_SRCS
     main_test.cc
-    true_value_test.cc
+    random_number_generator_func_test.cc
+    prob_density_func_test.cc
+    cumulative_dist_func_test.cc
     )
 
 set(GTEST_INCLUDES
