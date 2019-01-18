@@ -1,8 +1,22 @@
-set(ALL_LIB
-    /usr/local/lib
+set(HOME_DIR /Users/Owner)
+
+set(ALL_TEST_SRCS
+    main_test.cc
+    true_value_test.cc
     )
 
-link_directories(${ALL_LIB})
+set(GTEST_INCLUDES
+    ${HOME_DIR}/googletest/googletest/include
+    ${HOME_DIR}/googletest/googlemock/include
+ )
+set(LIB_PATHS
+    /usr/local/lib
+    #path for gtest library
+    ${HOME_DIR}/googletest/mybuild/lib
+    )
 
-add_executable(Main main.cc)
-target_link_libraries(Main mylib)
+
+link_directories(${LIB_PATHS})
+add_executable(Testset ${ALL_TEST_SRCS})
+target_include_directories(Testset PUBLIC ${GTEST_INCLUDES})
+target_link_libraries(Testset mylib gtest gtest_main)
