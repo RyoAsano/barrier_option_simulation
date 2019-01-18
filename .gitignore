@@ -1,7 +1,8 @@
 time_changed_barrier_option.xcodeproj/
 .DS_Store
-time_changed_barrier_option/build
 time_changed_barrier_option/csv_output
-time_changed_barrier_option/compile_commands.json
-time_changed_barrier_option2/build
-time_changed_barrier_option_temp/build
+**/compile_commands.json
+**/build
+**/*.swp
+**/*.swo
+
