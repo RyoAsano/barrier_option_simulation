@@ -5,6 +5,7 @@ set(ALL_TEST_SRCS
     random_number_generator_func_test.cc
     prob_density_func_test.cc
     cumulative_dist_func_test.cc
+    black_scholes_explicit_expectation_test.cc
     )
 
 set(GTEST_INCLUDES

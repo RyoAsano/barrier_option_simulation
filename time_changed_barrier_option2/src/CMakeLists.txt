@@ -3,6 +3,7 @@ set(ALL_SRCS
     euler_maruyama_alg.cc
     prob_density_func.cc
     random_number_generator_func.cc
+    black_scholes_explicit_expectation.cc
     )
 
 #Make sure that the dependencies among headers are in a correct order.
