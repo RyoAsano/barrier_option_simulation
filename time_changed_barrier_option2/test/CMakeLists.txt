@@ -6,6 +6,7 @@ set(ALL_TEST_SRCS
     prob_density_func_test.cc
     cumulative_dist_func_test.cc
     black_scholes_explicit_expectation_test.cc
+    test_util_test.cc
     )
 
 set(GTEST_INCLUDES
