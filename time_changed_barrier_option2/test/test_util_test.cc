@@ -94,3 +94,33 @@ TEST(TestUtilSignedMomentTest, MonteCarloCheck){
     EXPECT_NEAR(running_sum_for_2nd_moment/num_of_paths,test_util::GaussianSignedMoment(rv_coeff,fixed_coeff,fixed_val,2),0.099999999);
     EXPECT_NEAR(running_sum_for_3rd_moment/num_of_paths,test_util::GaussianSignedMoment(rv_coeff,fixed_coeff,fixed_val,3),0.099999999);   
 }
+
+TEST(TestUtilOneSidedBrownianBridgeSignedMoment, MonteCarloCheck){
+    QuantLib::BigInteger seed = QuantLib::SeedGenerator::instance().get();
+    QuantLib::MersenneTwisterUniformRng unif_gen(seed);
+    QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> norm_rand_gen(unif_gen);
+
+    double goal_value=1.24;
+    double goal_time=2.2;
+    double current_time=1.3; 
+    unsigned long num_of_paths=1000000;
+
+    double rv_coeff=sqrt((goal_time-current_time)*current_time/goal_time);
+    double fixed_coeff=(goal_time-current_time)/goal_time;
+    double fixed_val=goal_value;
+    double factor_before_expectation=-1.0/goal_value*goal_time/(goal_time-current_time);
+
+    double running_sum_for_1st_moment=0;
+    double running_sum_for_2nd_moment=0;
+    double running_sum_for_3rd_moment=0;
+    for(int i=0;i<num_of_paths;++i){
+       double sample=norm_rand_gen.next().value*rv_coeff-fixed_coeff*fixed_val;
+       int sgn=(sample>0)?1:-1;
+        running_sum_for_1st_moment+=factor_before_expectation*sample*sample*sgn;
+        running_sum_for_2nd_moment+=factor_before_expectation*sample*sample*sample;
+    }
+
+    EXPECT_NEAR(running_sum_for_1st_moment/num_of_paths,test_util::OneSidedBrownianBridgeSignedMoment(goal_value,goal_time,current_time,1),0.099999999);
+    EXPECT_NEAR(running_sum_for_2nd_moment/num_of_paths,test_util::OneSidedBrownianBridgeSignedMoment(goal_value,goal_time,current_time,2),0.099999999);
+}
+
