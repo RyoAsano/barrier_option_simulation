@@ -4,6 +4,7 @@ set(ALL_SRCS
     prob_density_func.cc
     random_number_generator_func.cc
     black_scholes_explicit_expectation.cc
+    test_util.cc
     )
 
 #Make sure that the dependencies among headers are in a correct order.

@@ -11,4 +11,7 @@ TEST(ProbDensityOfBrownainMotionFirstHittingTimeTest, ExactValue){
     EXPECT_NEAR(prob_density_func::BrownianMotionFirstHittingTime(2.2,9.5), 0.02323360138, 0.00000000000999999999);
 }
 
+TEST(ProbDensityOfStdGaussian, ExactValue){ 
+    EXPECT_NEAR(prob_density_func::StdGaussian(0.323),0.37866513,0.00000000999999999);
+}
 

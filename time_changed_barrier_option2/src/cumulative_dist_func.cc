@@ -3,7 +3,7 @@
 
 namespace cumulative_dist_func {
 
-double Gaussian(double prob_less_than){
+double StdGaussian(double prob_less_than){
     return 0.5*erfc(-prob_less_than*sqrt(0.5));
 }
 }//namespace cumulative_dist_func
