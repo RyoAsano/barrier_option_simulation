@@ -95,3 +95,33 @@ TEST(GenFuncOfOneSidedBrowninanBridgeTest,IncrementShouldEqualFromOrigin){
     EXPECT_DOUBLE_EQ(factor_for_from_origin,factor_for_increment);
     EXPECT_DOUBLE_EQ(arg_for_from_origin,arg_for_increment);
 }
+
+TEST(GenFuncOfOneSidedBrowninanBridgeTest, UsingDensityFunction){
+    double goal_value=1.434;
+    double goal_time=0.921;
+    double current_time=0.223;
+    auto test_function =[](double argument){return argument*argument;};
+
+    QuantLib::BigInteger seed = QuantLib::SeedGenerator::instance().get();
+    QuantLib::MersenneTwisterUniformRng unif_gen(seed);
+    QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> norm_rand_gen(unif_gen);
+
+    double running_sum_for_generator=0;
+    double running_sum_for_density=0;
+    unsigned long num_of_paths=10000000;
+    for(int i=0;i<num_of_paths;++i){
+        double factor=1.0;
+        double argument=0;
+        random_number_generator_func::OneSidedBrownianBridgeFromOrigin(&factor,&argument,
+                goal_value,goal_time,current_time,norm_rand_gen.next().value);
+        running_sum_for_generator+=factor*test_function(argument);
+        
+        double unif=unif_gen.next().value;
+        double changed_variable=goal_value-(1.0-unif)/unif;
+        double integrator_multiplier=1.0/(unif*unif);
+        running_sum_for_density+=test_function(changed_variable)*
+            prob_density_func::OneSidedBrownianBridge(goal_value,goal_time,
+                current_time,changed_variable)*integrator_multiplier; 
+    }
+    EXPECT_NEAR(running_sum_for_density/num_of_paths,running_sum_for_generator/num_of_paths,0.0099999);
+}
