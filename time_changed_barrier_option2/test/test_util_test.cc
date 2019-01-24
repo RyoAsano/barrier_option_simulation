@@ -2,7 +2,6 @@
 #include "test_util.h"
 #include <ql/methods/montecarlo/sample.hpp>
 #include <ql/quantlib.hpp>
-
 TEST(TestUtilUnusualMomentTest, EqualToZero){
     EXPECT_DOUBLE_EQ(test_util::GaussianUnusualMoment(1000,0,10000,1), 0);
     EXPECT_DOUBLE_EQ(test_util::GaussianUnusualMoment(1000,10000,0,1), 0);
@@ -95,7 +94,7 @@ TEST(TestUtilSignedMomentTest, MonteCarloCheck){
     EXPECT_NEAR(running_sum_for_3rd_moment/num_of_paths,test_util::GaussianSignedMoment(rv_coeff,fixed_coeff,fixed_val,3),0.099999999);   
 }
 
-TEST(TestUtilOneSidedBrownianBridgeSignedMoment, MonteCarloCheck){
+TEST(TestUtilOneSidedBrownianBridgeMoment, MonteCarloCheck){
     QuantLib::BigInteger seed = QuantLib::SeedGenerator::instance().get();
     QuantLib::MersenneTwisterUniformRng unif_gen(seed);
     QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> norm_rand_gen(unif_gen);
@@ -120,7 +119,7 @@ TEST(TestUtilOneSidedBrownianBridgeSignedMoment, MonteCarloCheck){
         running_sum_for_2nd_moment+=factor_before_expectation*sample*sample*sample;
     }
 
-    EXPECT_NEAR(running_sum_for_1st_moment/num_of_paths,test_util::OneSidedBrownianBridgeSignedMoment(goal_value,goal_time,current_time,1),0.099999999);
-    EXPECT_NEAR(running_sum_for_2nd_moment/num_of_paths,test_util::OneSidedBrownianBridgeSignedMoment(goal_value,goal_time,current_time,2),0.099999999);
+    EXPECT_NEAR(running_sum_for_1st_moment/num_of_paths,test_util::OneSidedBrownianBridgeMoment(goal_value,goal_time,current_time,1),0.099999999);
+    EXPECT_NEAR(running_sum_for_2nd_moment/num_of_paths,test_util::OneSidedBrownianBridgeMoment(goal_value,goal_time,current_time,2),0.099999999);
 }
 

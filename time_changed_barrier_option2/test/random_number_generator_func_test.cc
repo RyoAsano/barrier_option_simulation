@@ -46,7 +46,7 @@ TEST(GenFuncOfBMsFirstHittingTimeTest, CheckInverseRelation){
 /*
  * This test suite checks that the values
  * \mathbb{E}[(y-\beta_{t,y}(s))^{n}]
- * coincide between the OneSIdedBrownianBridgeFromOrigin and test_util's SignedMoment function.
+ * coincide between the OneSIdedBrownianBridgeFromOrigin and test_util's Moment function.
  */
 TEST(GenFuncOfOneSidedBrowninanBridgeTest, MonteCarloCheckForMoments){
     QuantLib::BigInteger seed = QuantLib::SeedGenerator::instance().get();
@@ -71,6 +71,27 @@ TEST(GenFuncOfOneSidedBrowninanBridgeTest, MonteCarloCheckForMoments){
         running_sum_for_3rd_moment+=factor*(goal_value-argument)*(goal_value-argument)*(goal_value-argument);
     }
 
-    EXPECT_NEAR(running_sum_for_1st_moment/num_of_paths,test_util::OneSidedBrownianBridgeSignedMoment(goal_value,goal_time,current_time,1),0.099999999);
-    EXPECT_NEAR(running_sum_for_2nd_moment/num_of_paths,test_util::OneSidedBrownianBridgeSignedMoment(goal_value,goal_time,current_time,2),0.099999999);
+    EXPECT_NEAR(running_sum_for_1st_moment/num_of_paths,test_util::OneSidedBrownianBridgeMoment(goal_value,goal_time,current_time,1),0.099999999);
+    EXPECT_NEAR(running_sum_for_2nd_moment/num_of_paths,test_util::OneSidedBrownianBridgeMoment(goal_value,goal_time,current_time,2),0.099999999);
+}
+
+TEST(GenFuncOfOneSidedBrowninanBridgeTest,IncrementShouldEqualFromOrigin){
+    double goal_value=1.872;
+    double goal_time=7.237;
+    double std_norm_rand_num=0.3333;
+
+    double current_time_for_from_origin=0.118;
+    double factor_for_from_origin=0;
+    double arg_for_from_origin=0; 
+    random_number_generator_func::OneSidedBrownianBridgeFromOrigin(&factor_for_from_origin,&arg_for_from_origin,
+            goal_value,goal_time,current_time_for_from_origin,std_norm_rand_num);
+
+    double current_time_for_increment=0;
+    double time_increment=current_time_for_from_origin-current_time_for_increment;
+    double factor_for_increment=1; //Note that in case of use of increment function, you must initialize it with 1.
+    double arg_for_increment=0;
+    arg_for_increment=random_number_generator_func::OneSidedBrownianBridgeIncrement(goal_value,goal_time,
+            current_time_for_increment,0,time_increment,std_norm_rand_num, &factor_for_increment);
+    EXPECT_DOUBLE_EQ(factor_for_from_origin,factor_for_increment);
+    EXPECT_DOUBLE_EQ(arg_for_from_origin,arg_for_increment);
 }

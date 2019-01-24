@@ -58,6 +58,13 @@ void OneSidedBrownianBridgeFromOrigin(double *factor_storage, double *arg_storag
                            -goal_value*(goal_time-current_time)/goal_time);
 }
 
+/*
+ * This computes the \Lamlbda and \lambda satisfying
+ * \mathbb{E}[f(\beta_{t,y}(s)-\beta_{t,y}(u))|\mathcal{F}_u]=\mathbb{E}[f(\Lambda)*\lambda]|_b=\beta_{t,y}(u),
+ * where t, y, s are the goal_time, goal_value and current_time.
+ * b=\beta_{t,y}(u) corresponds to the current_value and the time_increment should coincide with s-u.
+ * It should return \Lambda while it put \lambda in running_factor_ptr.
+ */
 double OneSidedBrownianBridgeIncrement(double goal_value, double goal_time,
         double current_time, double current_value, double time_increment, double std_norm_rand_num, double *running_factor_ptr){
 
@@ -72,7 +79,7 @@ double OneSidedBrownianBridgeIncrement(double goal_value, double goal_time,
     assert(current_time>=0);
 
     *running_factor_ptr *=1.0-std_norm_rand_num/(goal_value-current_value)*
-                                     sqrt(goal_time-current_time)/(goal_time-next_time)*time_increment;
+                                     sqrt((goal_time-current_time)/(goal_time-next_time)*time_increment);
    
     return goal_value-current_value-abs(
             std_norm_rand_num*sqrt((goal_time-next_time)/(goal_time-current_time)*time_increment)
