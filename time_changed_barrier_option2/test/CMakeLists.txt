@@ -7,6 +7,7 @@ set(ALL_TEST_SRCS
     cumulative_dist_func_test.cc
     black_scholes_explicit_expectation_test.cc
     test_util_test.cc
+    euler_maruyama_alg_test.cc
     )
 
 set(GTEST_INCLUDES
