@@ -123,3 +123,31 @@ TEST(TestUtilOneSidedBrownianBridgeMoment, MonteCarloCheck){
     EXPECT_NEAR(running_sum_for_2nd_moment/num_of_paths,test_util::OneSidedBrownianBridgeMoment(goal_value,goal_time,current_time,2),0.099999999);
 }
 
+TEST(TestUtilTimeChangedBlackScholesLinearTest, MonteCarloCheck){
+    QuantLib::BigInteger seed = QuantLib::SeedGenerator::instance().get();
+    QuantLib::MersenneTwisterUniformRng unif_gen(seed);
+
+    double volatility=0.2;
+    double sde_initial_value=1.0;
+    double brownian_bridge_goal_value=2.0;
+    double brownian_bridge_goal_time=1.5;
+    double current_time=0.26; 
+
+    double asset_price_process=0;
+    double barrier_hitting_time=0;
+    test_util::BlackScholesTimeChangedHittingTimeLinearCase(volatility,sde_initial_value,brownian_bridge_goal_value,
+            brownian_bridge_goal_time,current_time,&asset_price_process,&barrier_hitting_time);
+
+    double expected_value_for_asset_price_process=
+        sde_initial_value+(brownian_bridge_goal_value-sde_initial_value)*current_time/brownian_bridge_goal_time;
+    double running_sum_for_barrier_hitting_time=0;
+    unsigned long num_of_paths=1000000;
+    for(int i=0;i<num_of_paths;++i){
+        double unif=unif_gen.next().value*current_time;
+        running_sum_for_barrier_hitting_time+=current_time/(volatility*volatility
+                            *(sde_initial_value+(brownian_bridge_goal_value-sde_initial_value)*unif/brownian_bridge_goal_time)
+                            *(sde_initial_value+(brownian_bridge_goal_value-sde_initial_value)*unif/brownian_bridge_goal_time));
+    }
+    EXPECT_DOUBLE_EQ(asset_price_process, expected_value_for_asset_price_process);
+    EXPECT_NEAR(barrier_hitting_time,running_sum_for_barrier_hitting_time/num_of_paths,0.0099999); 
+}

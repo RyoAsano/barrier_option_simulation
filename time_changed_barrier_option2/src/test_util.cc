@@ -112,4 +112,15 @@ double OneSidedBrownianBridgeMoment(double goal_value, double goal_time, double 
     }
     return result;
 }
+
+void BlackScholesTimeChangedHittingTimeLinearCase(double volatility, double sde_initial_value,
+        double brownian_bridge_goal_value, double brownian_bridge_goal_time, double current_time,
+        double *asset_price_process_ptr, double *barrier_hitting_time_ptr){
+    assert(volatility>0);
+    assert(0<=current_time&&current_time<=brownian_bridge_goal_time);
+
+    *asset_price_process_ptr=sde_initial_value+(brownian_bridge_goal_value-sde_initial_value)*current_time/brownian_bridge_goal_time;
+    *barrier_hitting_time_ptr=current_time/(volatility*volatility*sde_initial_value*
+                                (sde_initial_value+(brownian_bridge_goal_value-sde_initial_value)*current_time/brownian_bridge_goal_time));
+}
 }//namespace test_util
