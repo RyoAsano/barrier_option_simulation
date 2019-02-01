@@ -43,6 +43,42 @@ TEST(GenFuncOfBMsFirstHittingTimeTest, CheckInverseRelation){
     EXPECT_DOUBLE_EQ(random_number_generator_func::BrownianMotionFirstHittingTime(barrier_level,unif1,unif2),expected_value);
 }
 
+TEST(GenFuncOfBMsFirstHittingTimeTest, MonteCarloCheck){
+    double maturity=1.0;
+    double barrier_level=1.0;
+    QuantLib::BigInteger seed = QuantLib::SeedGenerator::instance().get();
+    QuantLib::MersenneTwisterUniformRng unif_gen(seed); 
+    QuantLib::BoxMullerGaussianRng<QuantLib::MersenneTwisterUniformRng> norm_rand_gen(unif_gen);
+
+    double running_sum_for_euler_maruyama=0;
+    double running_sum_for_first_hitting_time=0;
+
+    unsigned long num_of_paths=10000;
+    unsigned int num_of_subdivisions=1000;
+    double time_increment=maturity/num_of_subdivisions;
+    for(int i=0;i<num_of_paths;++i){
+        double running_brownian_motion=0;
+        double indicator_function=0;
+        for(int k=0;k<num_of_subdivisions;++k){
+            if(running_brownian_motion>barrier_level){
+              indicator_function=1.0;  
+              break;
+            }
+            running_brownian_motion+=norm_rand_gen.next().value*sqrt(time_increment);
+        }
+        running_sum_for_euler_maruyama+=indicator_function; 
+    }
+
+    for(int i=0;i<num_of_paths;++i){
+        double sample_first_hitting_time=random_number_generator_func::BrownianMotionFirstHittingTime(barrier_level,
+                unif_gen.next().value,unif_gen.next().value);
+        if(sample_first_hitting_time<=maturity){
+            running_sum_for_first_hitting_time+=1.0;
+        }
+    }
+    EXPECT_NEAR(running_sum_for_first_hitting_time/num_of_paths,running_sum_for_euler_maruyama/num_of_paths,0.000099999);
+}
+
 /*
  * This test suite checks that the values
  * \mathbb{E}[(y-\beta_{t,y}(s))^{n}]
@@ -100,7 +136,7 @@ TEST(GenFuncOfOneSidedBrowninanBridgeTest, UsingDensityFunction){
     double goal_value=1.434;
     double goal_time=0.921;
     double current_time=0.223;
-    auto test_function =[](double argument){return argument*argument;};
+    auto test_function =[](double argument){return (argument>0)?argument:0;};
 
     QuantLib::BigInteger seed = QuantLib::SeedGenerator::instance().get();
     QuantLib::MersenneTwisterUniformRng unif_gen(seed);
@@ -121,7 +157,7 @@ TEST(GenFuncOfOneSidedBrowninanBridgeTest, UsingDensityFunction){
         double integrator_multiplier=1.0/(unif*unif);
         running_sum_for_density+=test_function(changed_variable)*
             prob_density_func::OneSidedBrownianBridge(goal_value,goal_time,
-                current_time,changed_variable)*integrator_multiplier; 
+                current_time,changed_variable)*integrator_multiplier;
     }
-    EXPECT_NEAR(running_sum_for_density/num_of_paths,running_sum_for_generator/num_of_paths,0.0099999);
+    EXPECT_NEAR(running_sum_for_density/num_of_paths,running_sum_for_generator/num_of_paths,0.0000000099999);
 }
