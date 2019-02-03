@@ -8,6 +8,7 @@ set(ALL_TEST_SRCS
     black_scholes_explicit_expectation_test.cc
     test_util_test.cc
     euler_maruyama_alg_test.cc
+    statistical_functions_test.cc
     )
 
 set(GTEST_INCLUDES

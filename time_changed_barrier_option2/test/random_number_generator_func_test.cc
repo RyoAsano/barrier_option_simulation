@@ -54,7 +54,7 @@ TEST(GenFuncOfBMsFirstHittingTimeTest, MonteCarloCheck){
     double running_sum_for_first_hitting_time=0;
 
     unsigned long num_of_paths=10000;
-    unsigned int num_of_subdivisions=1000;
+    unsigned int num_of_subdivisions=10;
     double time_increment=maturity/num_of_subdivisions;
     for(int i=0;i<num_of_paths;++i){
         double running_brownian_motion=0;
@@ -76,7 +76,7 @@ TEST(GenFuncOfBMsFirstHittingTimeTest, MonteCarloCheck){
             running_sum_for_first_hitting_time+=1.0;
         }
     }
-    EXPECT_NEAR(running_sum_for_first_hitting_time/num_of_paths,running_sum_for_euler_maruyama/num_of_paths,0.000099999);
+    EXPECT_NEAR(running_sum_for_first_hitting_time/num_of_paths,running_sum_for_euler_maruyama/num_of_paths,0.099999);
 }
 
 /*
@@ -144,7 +144,7 @@ TEST(GenFuncOfOneSidedBrowninanBridgeTest, UsingDensityFunction){
 
     double running_sum_for_generator=0;
     double running_sum_for_density=0;
-    unsigned long num_of_paths=10000000;
+    unsigned long num_of_paths=1000000;
     for(int i=0;i<num_of_paths;++i){
         double factor=1.0;
         double argument=0;
@@ -159,5 +159,5 @@ TEST(GenFuncOfOneSidedBrowninanBridgeTest, UsingDensityFunction){
             prob_density_func::OneSidedBrownianBridge(goal_value,goal_time,
                 current_time,changed_variable)*integrator_multiplier;
     }
-    EXPECT_NEAR(running_sum_for_density/num_of_paths,running_sum_for_generator/num_of_paths,0.0000000099999);
+    EXPECT_NEAR(running_sum_for_density/num_of_paths,running_sum_for_generator/num_of_paths,0.099999);
 }

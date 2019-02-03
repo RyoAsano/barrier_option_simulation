@@ -151,7 +151,7 @@ TEST(TimeChangedBlackScholesUpperBarrierOnePathTest,MonteCarloCheckForSimpleExpe
     double barrier_level=101;
     double maturity=1.0;
     unsigned int  num_of_subdivisions=10;
-    unsigned long num_of_paths=10000000;
+    unsigned long num_of_paths=100000;
 
     double asset_price_process;
     double barrier_hitting_time;
@@ -182,7 +182,7 @@ TEST(TimeChangedBlackScholesUpperBarrierOnePathTest,MonteCarloCheckForSimpleExpe
             running_sum_for_monte_carlo+=factor*asset_price_process; 
         }
     }
-    EXPECT_NEAR(running_sum_for_monte_carlo/num_of_paths,barrier_level,0.00099999);
+    EXPECT_NEAR(running_sum_for_monte_carlo/num_of_paths,barrier_level,0.99999);
 }
 
 
@@ -194,7 +194,7 @@ TEST(TimeChangedBlackSCholesUpperBarrierMonteCarloTest, CheckTheValueOfApproxima
     double strike=100; 
     double barrier_level=110;
     unsigned int num_of_subdivisions=10;
-    unsigned long int num_of_paths=10000000;
+    unsigned long int num_of_paths=100000;
 
     for(int j=0;j<10;++j){
         double result=euler_maruyama::TimeChangedBlackScholesMonteCarloUpAndInCall(drift,volatility,maturity,sde_initial_value,

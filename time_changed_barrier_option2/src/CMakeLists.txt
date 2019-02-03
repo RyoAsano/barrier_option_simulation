@@ -5,6 +5,7 @@ set(ALL_SRCS
     random_number_generator_func.cc
     black_scholes_explicit_expectation.cc
     test_util.cc
+    statistical_functions.cc
     )
 
 #Make sure that the dependencies among headers are in a correct order.
