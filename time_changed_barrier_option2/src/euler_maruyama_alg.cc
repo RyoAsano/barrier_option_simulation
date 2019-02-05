@@ -6,6 +6,7 @@
 #include <time.h>
 #include "random_number_generator_func.h"
 #include "black_scholes_explicit_expectation.h"
+#include "statistical_functions.h"
 
 namespace euler_maruyama {
 
@@ -62,9 +63,10 @@ void TimeChangedBlackScholesUpperBarrierOnePath(double drift, double volatility,
 
 double TimeChangedBlackScholesMonteCarloUpAndInCall(double drift, double volatility, double maturity, double sde_initial_value,
         double strike, double barrier_level, unsigned int num_of_subdivisions, unsigned long num_of_paths){
-    time_t now=time(0);
-    unsigned long seed=getpid()+(unsigned long)now;
+    //time_t now=time(0);
+    //unsigned long seed=getpid()+(unsigned long)now;
 
+    QuantLib::BigInteger seed = QuantLib::SeedGenerator::instance().get();
     typedef QuantLib::MersenneTwisterUniformRng MersenneTwister;
     typedef QuantLib::BoxMullerGaussianRng<MersenneTwister> BoxMuller;
     QuantLib::RandomSequenceGenerator<MersenneTwister> unif_gen(2,MersenneTwister(seed));
@@ -89,5 +91,37 @@ double TimeChangedBlackScholesMonteCarloUpAndInCall(double drift, double volatil
         }
     }
     return running_sum_for_monte_carlo/num_of_paths;
+}
+
+void TimeChangedBlackScholesMonteCarloUpAndInCallVariance(double drift, double volatility, double maturity, double sde_initial_value,
+        double strike, double barrier_level, unsigned int num_of_subdivisions, unsigned long num_of_paths, double *mean_ptr, double *variance_ptr){
+
+    QuantLib::BigInteger seed = QuantLib::SeedGenerator::instance().get();
+    typedef QuantLib::MersenneTwisterUniformRng MersenneTwister;
+    typedef QuantLib::BoxMullerGaussianRng<MersenneTwister> BoxMuller;
+    QuantLib::RandomSequenceGenerator<MersenneTwister> unif_gen(2,MersenneTwister(seed));
+    QuantLib::RandomSequenceGenerator<BoxMuller> norm_rand_num_array_gen(num_of_subdivisions,BoxMuller(MersenneTwister(seed)));
+
+    *mean_ptr=0;
+    *variance_ptr=0;
+    for(int i=0;i<num_of_paths;++i){
+        double next_sample=0;
+        std::vector<double> unif_vector=unif_gen.nextSequence().value;
+        double brownian_bridge_goal_time=random_number_generator_func::BrownianMotionFirstHittingTime(
+                barrier_level-sde_initial_value,unif_vector[0],unif_vector[1]);
+        double asset_price_process;
+        double barrier_hitting_time;
+        double log_density_process;
+        double factor;
+        bool the_process_hits_the_barrier_before_maturity;
+        euler_maruyama::TimeChangedBlackScholesUpperBarrierOnePath(drift,volatility,maturity,sde_initial_value,
+                barrier_level,brownian_bridge_goal_time,num_of_subdivisions,&(norm_rand_num_array_gen.nextSequence().value[0]),
+                &asset_price_process,&barrier_hitting_time,&log_density_process,&factor,&the_process_hits_the_barrier_before_maturity);
+        if(the_process_hits_the_barrier_before_maturity){
+            next_sample=factor*exp(log_density_process)*
+                black_scholes_explicit_expectation::VanillaCall(drift,volatility,maturity-barrier_hitting_time,strike,barrier_level);
+        }
+        statistical_functions::MeanVarianceNext(mean_ptr,variance_ptr,i,next_sample);
+    }
 }
 }//namespace euler_maruyama

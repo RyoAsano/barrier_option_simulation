@@ -14,4 +14,8 @@ void TimeChangedBlackScholesUpperBarrierOnePath(double drift, double volatility,
 
 double TimeChangedBlackScholesMonteCarloUpAndInCall(double drift, double volatility, double maturity, double sde_initial_value,
         double strike, double barrier_level, unsigned int num_of_subdivisions, unsigned long num_of_paths);
+
+void TimeChangedBlackScholesMonteCarloUpAndInCallVariance(double drift, double volatility, double maturity, double sde_initial_value,
+        double strike, double barrier_level, unsigned int num_of_subdivisions, unsigned long num_of_paths, double *mean_ptr, double *variance_ptr);
+
 }//namespace euler_maruyama

@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <time.h>
 #include "random_number_generator_func.h"
+#include "statistical_functions.h"
 
 
 TEST(TimeChangedBlackScholesUpperBarrierOneStepTest, DeterministicLinear){
@@ -194,9 +195,9 @@ TEST(TimeChangedBlackSCholesUpperBarrierMonteCarloTest, CheckTheValueOfApproxima
     double strike=100; 
     double barrier_level=110;
     unsigned int num_of_subdivisions=10;
-    unsigned long int num_of_paths=100000;
+    unsigned long int num_of_paths=1;
 
-    for(int j=0;j<10;++j){
+    for(int j=0;j<100;++j){
         double result=euler_maruyama::TimeChangedBlackScholesMonteCarloUpAndInCall(drift,volatility,maturity,sde_initial_value,
                 strike,barrier_level,num_of_subdivisions,num_of_paths);
         double expected=black_scholes_explicit_expectation::UpAndInCall(drift,volatility,maturity,strike,sde_initial_value,barrier_level);
@@ -204,7 +205,44 @@ TEST(TimeChangedBlackSCholesUpperBarrierMonteCarloTest, CheckTheValueOfApproxima
         std::cerr<<"[          ] time "<<j+1<<std::endl;
         std::cerr<<"[          ] approximation by time change:"<<result<<std::endl;
         std::cerr<<"[          ] true value:"<<expected<<std::endl;
-        EXPECT_NEAR(result,expected,0.9999999);
     }
+}
 
+TEST(TimeChangedBlackScholesMonteCarloUpAndInCallVarianceTest, CheckTheValue){
+    double drift=0.02;
+    double volatility=0.2;
+    double maturity=1.0;
+    double sde_initial_value=100;
+    double strike=100; 
+    double barrier_level=110;
+    unsigned int num_of_subdivisions=10;
+    unsigned long int num_of_paths=100000;
+
+    double mean_of_variance=0;
+    double variance_of_variance=0;
+
+    
+    std::cerr<<"[          ] drift:"<<drift<<std::endl;
+    std::cerr<<"[          ] volatility:"<<volatility<<std::endl;
+    std::cerr<<"[          ] maturity:"<<maturity<<std::endl;
+    std::cerr<<"[          ] the initial value of the asset price process:"<<sde_initial_value<<std::endl;
+    std::cerr<<"[          ] strike:"<<strike<<std::endl;
+    std::cerr<<"[          ] level of the barrier:"<<barrier_level<<std::endl;
+    std::cerr<<"[          ] number of subdivisions:"<<num_of_subdivisions<<std::endl;
+    std::cerr<<"-------results come up from here-------"<<std::endl;
+    for(int j=0;j<10;++j){
+        double mean=0;
+        double variance=0;
+        euler_maruyama::TimeChangedBlackScholesMonteCarloUpAndInCallVariance(drift,volatility,maturity,sde_initial_value,
+                strike,barrier_level,num_of_subdivisions,num_of_paths,&mean,&variance);
+
+        std::cerr<<"[          ] time "<<j+1<<std::endl;
+        std::cerr<<"[          ] mean:"<<mean<<std::endl;
+        std::cerr<<"[          ] variance:"<<variance<<std::endl;
+
+        statistical_functions::MeanVarianceNext(&mean_of_variance,&variance_of_variance,j,variance);
+
+    }
+    std::cerr<<"[          ] Summary "<<std::endl;
+    std::cerr<<"[          ] averaged variance:"<<mean_of_variance<<std::endl;
 }
