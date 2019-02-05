@@ -146,3 +146,18 @@ TEST(BlackScholesUpAndInExpectationTest,should_equal_vanilla_call){
 
     EXPECT_DOUBLE_EQ(vanilla,up_and_in);
 }
+
+TEST(BlackScholesCallDeltaTest, Benchmark){
+    double drift=0;
+    double volatility=0.2;
+    double maturity=0.3;
+    double strike=100;
+    double initial_value=100;
+
+    for(int i=0;i<10;++i){
+        std::cerr << "[          ] volatility:"<< volatility 
+                  <<" delta:" << black_scholes_explicit_expectation::VanillaCallDelta(drift,volatility,maturity,strike, initial_value)
+                  << std::endl; 
+        volatility+=0.05;
+    }
+}

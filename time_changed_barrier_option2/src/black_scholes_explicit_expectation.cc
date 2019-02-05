@@ -19,6 +19,11 @@ double VanillaPut(double drift, double volatility, double maturity, double strik
     return strike*cumulative_dist_func::StdGaussian(-delta_minus) - initial_value*exp(drift*maturity)*cumulative_dist_func::StdGaussian(-delta_plus);
 }
 
+double VanillaCallDelta(double drift, double volatility, double maturity, double strike, double initial_value){
+    double delta_plus=1.0/(volatility*sqrt(maturity))*(log(initial_value/strike)+(drift+volatility*volatility/2.0)*maturity);
+    return cumulative_dist_func::StdGaussian(delta_plus);
+}
+
 /*
  * the following equations with the notations are given by John C.Hull's book "OPTIONS FUTURES & OTHER DERIVATIVES"".
  * You can find the formula in 18.1 "Types of Exotic Options", p.463.
