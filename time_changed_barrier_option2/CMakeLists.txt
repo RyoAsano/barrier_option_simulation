@@ -6,3 +6,4 @@ add_definitions(-std=c++11)
 
 add_subdirectory(src)
 add_subdirectory(test)
+add_subdirectory(main)
