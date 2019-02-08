@@ -52,7 +52,7 @@ void TimeChangedBlackScholesUpperBarrierOnePath(double drift, double volatility,
                         current_time,running_one_sided_brownian_bridge,time_increment,norm_rand_num_array[k],factor_ptr);
         euler_maruyama::TimeChangedBlackScholesUpperBarrierOneStep(drift,volatility,one_sided_brownian_bridge_increment,
                 time_increment,asset_price_process_ptr,barrier_hitting_time_ptr,log_density_process_ptr);
-        if((*barrier_hitting_time_ptr)>maturity){
+        if((*asset_price_process_ptr)<=0 || (*barrier_hitting_time_ptr)>maturity){
             *the_process_hits_the_barrier_before_maturity_ptr=false;
             break;
         }
@@ -72,7 +72,7 @@ double TimeChangedBlackScholesMonteCarloUpAndInCall(double drift, double volatil
     QuantLib::RandomSequenceGenerator<MersenneTwister> unif_gen(2,MersenneTwister(seed));
     QuantLib::RandomSequenceGenerator<BoxMuller> norm_rand_num_array_gen(num_of_subdivisions,BoxMuller(MersenneTwister(seed)));
 
-    double running_sum_for_monte_carlo=0;
+    double running_mean_for_monte_carlo=0;
     for(int i=0;i<num_of_paths;++i){
         std::vector<double> unif_vector=unif_gen.nextSequence().value;
         double brownian_bridge_goal_time=random_number_generator_func::BrownianMotionFirstHittingTime(
@@ -85,12 +85,14 @@ double TimeChangedBlackScholesMonteCarloUpAndInCall(double drift, double volatil
         euler_maruyama::TimeChangedBlackScholesUpperBarrierOnePath(drift,volatility,maturity,sde_initial_value,
                 barrier_level,brownian_bridge_goal_time,num_of_subdivisions,&(norm_rand_num_array_gen.nextSequence().value[0]),
                 &asset_price_process,&barrier_hitting_time,&log_density_process,&factor,&the_process_hits_the_barrier_before_maturity);
+        double sample=0;
         if(the_process_hits_the_barrier_before_maturity){
-            running_sum_for_monte_carlo+=factor*exp(log_density_process)*
-                black_scholes_explicit_expectation::VanillaCall(drift,volatility,maturity-barrier_hitting_time,strike,barrier_level);
+            sample=factor*exp(log_density_process)*
+                            black_scholes_explicit_expectation::VanillaCall(drift,volatility,maturity-barrier_hitting_time,strike,barrier_level);
         }
+        running_mean_for_monte_carlo=(double)i/(double)(i+1)*running_mean_for_monte_carlo+sample/(double)(i+1);
     }
-    return running_sum_for_monte_carlo/num_of_paths;
+    return running_mean_for_monte_carlo;
 }
 
 void TimeChangedBlackScholesMonteCarloUpAndInCallVariance(double drift, double volatility, double maturity, double sde_initial_value,

@@ -195,7 +195,7 @@ TEST(TimeChangedBlackSCholesUpperBarrierMonteCarloTest, CheckTheValueOfApproxima
     double strike=100; 
     double barrier_level=110;
     unsigned int num_of_subdivisions=10;
-    unsigned long int num_of_paths=1;
+    unsigned long int num_of_paths=10000000;
 
     for(int j=0;j<100;++j){
         double result=euler_maruyama::TimeChangedBlackScholesMonteCarloUpAndInCall(drift,volatility,maturity,sde_initial_value,
@@ -216,7 +216,7 @@ TEST(TimeChangedBlackScholesMonteCarloUpAndInCallVarianceTest, CheckTheValue){
     double strike=100; 
     double barrier_level=110;
     unsigned int num_of_subdivisions=10;
-    unsigned long int num_of_paths=100000;
+    unsigned long int num_of_paths=10000000;
 
     double mean_of_variance=0;
     double variance_of_variance=0;
