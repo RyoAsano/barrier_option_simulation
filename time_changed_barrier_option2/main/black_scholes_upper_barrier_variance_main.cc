@@ -4,7 +4,7 @@
 #include <cmath>
 #include <time.h>
 #include "euler_maruyama_alg.h"
-#include "black_scholes_explicit_expectation.h"
+#include "statistical_functions.h"
 
 int main(int argc, char *argv[]){
     double drift=0;
@@ -38,7 +38,7 @@ int main(int argc, char *argv[]){
 
         switch(c){
             case 'M':{
-                         num_of_paths=atol(optarg);
+                         num_of_paths=atoi(optarg);
                          break;
                      }
             case 'N':{
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]){
                      }
             case 'h':{
                          std::cout 
-                             << "This is the program for the computation of the up-and-in call vanilla option expectation."
+                             << "This is the program for the computation of the up-and-in call vanilla option's variance."
                              << "The following options are available:\n"
                              << "-M or --num_of_paths: the number of paths for Monte-Carlo simulations.\n" 
                              << "-N or --num_of_subdivisions: the number of subdivisions of the time interval for the Euler--Maruyama Scheme.\n"
@@ -97,8 +97,6 @@ int main(int argc, char *argv[]){
         exit(EXIT_FAILURE);
     }
 
-    double true_value=black_scholes_explicit_expectation::UpAndInCall(drift,volatility,maturity,strike,sde_initial_value,barrier_level);
-
     std::cout<<"The computation is starting under the following paramters:\n"
              <<"drift:"<<drift<<std::endl
              <<"volatility:"<<volatility<<std::endl
@@ -106,18 +104,19 @@ int main(int argc, char *argv[]){
              <<"initial value of the asset price:"<<sde_initial_value<<std::endl
              <<"strike:"<<strike<<std::endl
              <<"barrier level:"<<barrier_level<<std::endl
-             <<"In this case, the true price is given by "<<true_value<<".\n"
              <<std::endl
              <<"Also, we specified:\n"
              <<"number of paths:"<<num_of_paths<<std::endl
              <<"number of subdivisions:"<<num_of_subdivisions<<std::endl
              <<std::endl
-             <<"the approximating value is now under computation..."<<std::endl
+             <<"the variance is now  under estimation..."<<std::endl
              <<std::endl;
 
+    double estimated_mean=0;
+    double estimated_variance=0;
     time_t start=time(0);
-    double approximation_value=euler_maruyama::TimeChangedBlackScholesMonteCarloUpAndInCall(drift, volatility, maturity, 
-                                                            sde_initial_value, strike, barrier_level, num_of_subdivisions,num_of_paths);
+    euler_maruyama::TimeChangedBlackScholesMonteCarloUpAndInCallVariance(drift,volatility,
+                                maturity,sde_initial_value,strike,barrier_level,num_of_subdivisions,num_of_paths,&estimated_mean,&estimated_variance);
     time_t end=time(0);
 
     int time_diff=end-start;
@@ -126,13 +125,53 @@ int main(int argc, char *argv[]){
     int seconds=time_diff-hours*3600-minutes*60;
 
     std::cout<<"Computation is done.\n"
-             <<"The approximating value is:"<<approximation_value<<std::endl
-             <<"The true value is:"<<true_value<<std::endl
-             <<"The absolute difference is:"<<abs(approximation_value-true_value)<<std::endl
+             <<"The estimated mean is:"<<estimated_mean<<std::endl
+             <<"The estimated variance is:"<<estimated_variance<<std::endl
              <<"The computation time is:"
              <<hours<<" h. "
              <<minutes<<" m. "
              <<seconds<<"s.\n";
+
+    char ans_conti;
+    while(1){
+        std::cout<<"Would you also like to deduce the sample size?(Y/N)\n";
+        std::cin >> ans_conti;
+        if(ans_conti!='Y' && ans_conti!='N'){
+            std::cout<<"Please answer Y or N.\n";
+        }else{
+            break;
+        }
+    }
+
+    if(ans_conti=='Y'){
+        std::cout << "Henceforth we compute the neccessary sample path size to achieve the following inequality:\n"
+                  << "P[|MC-m|<e]>=p\n"
+                  << "where MC is the Monte--Carlo estimator m is the target mean, e is an accuracy and p is an acceptance level.\n";
+        double accuracy;
+        statistical_functions::AcceptanceLevel acceptance_level;
+        std::cout<<"Accuracy(e)?\n";
+        std::cin >> accuracy;
+        while(1){
+            char ans_acceptance_level; 
+            std::cout<<"Acceptance level?(1:p=95% 2:p=99% 3:p=99.9%)\n";
+            std::cin >> ans_acceptance_level;
+            if(ans_acceptance_level=='1'){
+                acceptance_level=statistical_functions::NinetyFive;
+                break;
+            }else if(ans_acceptance_level=='2'){
+                acceptance_level=statistical_functions::OneOverAHundred;
+                break;
+            }else if(ans_acceptance_level=='3'){
+                acceptance_level=statistical_functions::OneOverAThousand;
+                break;
+            }else{
+                std::cout << "Please answer 1, 2 or 3.\n";
+            }
+        }
+        std::cout<<"The required sample size is:"
+                 <<statistical_functions::SampleSizeGenerator(accuracy,estimated_variance,acceptance_level)
+                 <<std::endl;
+    }
 
     return 0;
 }
