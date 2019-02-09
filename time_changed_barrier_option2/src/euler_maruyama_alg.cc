@@ -45,7 +45,7 @@ void TimeChangedBlackScholesUpperBarrierOnePath(double drift, double volatility,
     double running_one_sided_brownian_bridge=0;
     double time_increment=brownian_bridge_goal_time/num_of_subdivisions;
     double current_time=0;
-    for(int k=0;k<num_of_subdivisions;++k){
+    for(unsigned int k=0;k<num_of_subdivisions;++k){
         double one_sided_brownian_bridge_increment=(k==num_of_subdivisions-1)?
                 (brownian_bridge_goal_value-running_one_sided_brownian_bridge):
                 random_number_generator_func::OneSidedBrownianBridgeIncrement(brownian_bridge_goal_value,brownian_bridge_goal_time,
@@ -62,7 +62,7 @@ void TimeChangedBlackScholesUpperBarrierOnePath(double drift, double volatility,
 }
 
 double TimeChangedBlackScholesMonteCarloUpAndInCall(double drift, double volatility, double maturity, double sde_initial_value,
-        double strike, double barrier_level, unsigned int num_of_subdivisions, unsigned long num_of_paths){
+        double strike, double barrier_level, unsigned int num_of_subdivisions, unsigned long long num_of_paths){
     //time_t now=time(0);
     //unsigned long seed=getpid()+(unsigned long)now;
 
@@ -73,7 +73,7 @@ double TimeChangedBlackScholesMonteCarloUpAndInCall(double drift, double volatil
     QuantLib::RandomSequenceGenerator<BoxMuller> norm_rand_num_array_gen(num_of_subdivisions,BoxMuller(MersenneTwister(seed)));
 
     double running_mean_for_monte_carlo=0;
-    for(int i=0;i<num_of_paths;++i){
+    for(unsigned long long i=0;i<num_of_paths;++i){
         std::vector<double> unif_vector=unif_gen.nextSequence().value;
         double brownian_bridge_goal_time=random_number_generator_func::BrownianMotionFirstHittingTime(
                 barrier_level-sde_initial_value,unif_vector[0],unif_vector[1]);
@@ -96,7 +96,7 @@ double TimeChangedBlackScholesMonteCarloUpAndInCall(double drift, double volatil
 }
 
 void TimeChangedBlackScholesMonteCarloUpAndInCallVariance(double drift, double volatility, double maturity, double sde_initial_value,
-        double strike, double barrier_level, unsigned int num_of_subdivisions, unsigned long num_of_paths, double *mean_ptr, double *variance_ptr){
+        double strike, double barrier_level, unsigned int num_of_subdivisions, unsigned long long num_of_paths, double *mean_ptr, double *variance_ptr){
 
     QuantLib::BigInteger seed = QuantLib::SeedGenerator::instance().get();
     typedef QuantLib::MersenneTwisterUniformRng MersenneTwister;
@@ -106,7 +106,7 @@ void TimeChangedBlackScholesMonteCarloUpAndInCallVariance(double drift, double v
 
     *mean_ptr=0;
     *variance_ptr=0;
-    for(int i=0;i<num_of_paths;++i){
+    for(unsigned long long i=0;i<num_of_paths;++i){
         double next_sample=0;
         std::vector<double> unif_vector=unif_gen.nextSequence().value;
         double brownian_bridge_goal_time=random_number_generator_func::BrownianMotionFirstHittingTime(

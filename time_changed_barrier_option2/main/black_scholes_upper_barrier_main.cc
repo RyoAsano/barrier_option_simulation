@@ -14,7 +14,7 @@ int main(int argc, char *argv[]){
     double strike=100;
     double barrier_level=120;
     unsigned int num_of_subdivisions=0;
-    unsigned long num_of_paths=0;
+    unsigned long long num_of_paths=0;
 
     struct option long_options[]={
         {"num_of_paths", required_argument, 0, 'M'},
@@ -38,7 +38,7 @@ int main(int argc, char *argv[]){
 
         switch(c){
             case 'M':{
-                         num_of_paths=atol(optarg);
+                         num_of_paths=atoll(optarg);
                          break;
                      }
             case 'N':{
