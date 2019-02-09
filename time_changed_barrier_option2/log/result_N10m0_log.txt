@@ -1,0 +1,42 @@
+The computation is starting under the following paramters:
+drift:0
+volatility:0.2
+maturity:1
+initial value of the asset price:100
+strike:100
+barrier level:120
+In this case, the true price is given by 6.86061.
+
+Also, we specified:
+number of paths:9608575952
+number of subdivisions:10
+
+the approximating value is now under computation...
+
+Computation is done.
+The approximating value is:6.95072
+The true value is:6.86061
+The absolute difference is:0.0901006
+The computation time is:4 h. 9 m. 8s.
+
+The computation is starting under the following paramters:
+drift:0
+volatility:0.2
+maturity:1
+initial value of the asset price:100
+strike:100
+barrier level:120
+In this case, the true price is given by 6.86061.
+
+Also, we specified:
+number of paths:9608575952
+number of subdivisions:10
+
+the approximating value is now under computation...
+
+Computation is done.
+The approximating value is:6.95065
+The true value is:6.86061
+The absolute difference is:0.0900369
+The computation time is:4 h. 17 m. 47s.
+
