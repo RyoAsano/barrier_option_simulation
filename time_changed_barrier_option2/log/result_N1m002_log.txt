@@ -1,0 +1,49 @@
+The computation is starting under the following paramters:
+drift:0.02
+volatility:0.2
+maturity:1
+initial value of the asset price:100
+strike:100
+barrier level:120
+
+Also, we specified:
+number of paths:1000
+number of subdivisions:1
+
+the variance is now  under estimation...
+
+Computation is done.
+The estimated mean is:10.7097
+The estimated variance is:143.132
+The computation time is:0 h. 0 m. 0s.
+Would you also like to deduce the sample size?(Y/N)
+Y 
+Henceforth we compute the neccessary sample path size to achieve the following inequality:
+P[|MC-m|<e]>=p
+where MC is the Monte--Carlo estimator m is the target mean, e is an accuracy and p is an acceptance level.
+Accuracy(e)?
+0.001
+Acceptance level?(1:p=95% 2:p=99% 3:p=99.9%)
+3
+The required sample size is:1549769633
+
+The computation is starting under the following paramters:
+drift:0.02
+volatility:0.2
+maturity:1
+initial value of the asset price:100
+strike:100
+barrier level:120
+In this case, the true price is given by 7.93206.
+
+Also, we specified:
+number of paths:1549769633
+number of subdivisions:1
+
+the approximating value is now under computation...
+
+Computation is done.
+The approximating value is:9.67297
+The true value is:7.93206
+The absolute difference is:1.74091
+The computation time is:0 h. 14 m. 7s.
