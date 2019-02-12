@@ -5,4 +5,5 @@ time_changed_barrier_option/csv_output
 **/build
 **/*.swp
 **/*.swo
-
+time_changed_barrier_option2/log/m002/.ipynb_checkpoints/
+time_changed_barrier_option2/log/m002/log_log_plot.png
