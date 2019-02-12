@@ -6,6 +6,6 @@ void MeanVarianceNext(double *running_mean_ptr, double *running_variance_ptr, un
 
 enum AcceptanceLevel {NinetyFive, OneOverAHundred, OneOverAThousand};
 
-unsigned long SampleSizeGenerator(double accuracy, double variance, statistical_functions::AcceptanceLevel level);
+unsigned long long SampleSizeGenerator(double accuracy, double variance, statistical_functions::AcceptanceLevel level);
 
 }//namespace statistical_functions

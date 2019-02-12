@@ -15,7 +15,7 @@ void MeanVarianceNext(double *running_mean_ptr, double *running_variance_ptr, un
     }
 }
 
-unsigned long SampleSizeGenerator(double accuracy, double variance, statistical_functions::AcceptanceLevel level){
+unsigned long long SampleSizeGenerator(double accuracy, double variance, statistical_functions::AcceptanceLevel level){
     double inverse_of_gaussian_cdf;
     switch(level){
         case AcceptanceLevel::NinetyFive: {
@@ -34,6 +34,6 @@ unsigned long SampleSizeGenerator(double accuracy, double variance, statistical_
                     assert(false&&"there is no such an acceptance level defined.");
                  }
     }
-    return (unsigned long)(variance*inverse_of_gaussian_cdf*inverse_of_gaussian_cdf/(accuracy*accuracy));
+    return (unsigned long long)(variance*inverse_of_gaussian_cdf*inverse_of_gaussian_cdf/(accuracy*accuracy));
 }
 }//namespace statistical_functions
